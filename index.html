@@ -1297,6 +1297,27 @@
           const row = values[i];
           const key = row && row[0];
           if (key && typeof key === "string") {
+            if (key.startsWith("ring.")) {
+              const prop = key.split(".")[1];
+              const arr = [];
+              i++;
+              while (i < values.length) {
+                const r = values[i];
+                if (r && r[0]) break;
+                const name = r && r[5];
+                const v = r && r[6];
+                if (name != null && v != null) {
+                  const num = Number(v);
+                  if (typeof name === "string" && !isNaN(num)) {
+                    arr.push({ name: String(name).trim(), value: num });
+                  }
+                }
+                i++;
+              }
+              if (!result.ring) result.ring = {};
+              result.ring[prop] = arr;
+              continue;
+            }
             if (key.includes("+")) {
               const [left, right] = key.split("+");
               const leftPart = left.split(".")[0];
@@ -1780,21 +1801,21 @@
         }
 
         const defaultRingCore = [
-          { value: 45, name: "????" },
-          { value: 25, name: "????" },
-          { value: 18, name: "????" },
-          { value: 12, name: "????" }
+          { value: 45, name: "华东" },
+          { value: 25, name: "华南" },
+          { value: 18, name: "华北" },
+          { value: 12, name: "西南" }
         ];
         const defaultRingPotential = [
-          { value: 32, name: "????" },
-          { value: 20, name: "?????" },
-          { value: 18, name: "????" },
-          { value: 15, name: "??????" },
-          { value: 15, name: "????" }
+          { value: 32, name: "长三角" },
+          { value: 20, name: "珠三角" },
+          { value: 18, name: "成渝城市群" },
+          { value: 15, name: "京津冀" },
+          { value: 15, name: "中原城市群" }
         ];
         const defaultRingPosition = [
-          { value: 60, name: "??????" },
-          { value: 40, name: "??????" }
+          { value: 60, name: "重点圈层" },
+          { value: 40, name: "一般圈层" }
         ];
         const ringData = {
           core:
