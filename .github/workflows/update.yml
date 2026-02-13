@@ -31,7 +31,10 @@ jobs:
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "actions@github.com"
-          git add data/map_data.json
-          # 如果文件没有变化，就不提交，防止报错
-          git commit -m "Auto-update data from Feishu" || exit 0
+          # git add data/map_data.json
+          # # 如果文件没有变化，就不提交，防止报错
+          # git commit -m "Auto-update data from Feishu" || exit 0
+          git add .
+          # 加上 --allow-empty 确保即使数据没变也强制触发一次部署
+          git commit --allow-empty -m "🔥 强制刷新网页部署: $(date)"
           git push
