@@ -2,7 +2,7 @@ name: 自动同步飞书数据
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # 每30分钟运行一次
+    - cron: '*/5 * * * *' # 每30分钟运行一次
   workflow_dispatch:      # 允许手动触发
 
 permissions:
