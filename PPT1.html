@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>春节出行数据洞察</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              techno: "#3B82F6",
+              mint: "#34D399",
+              lilac: "#8B5CF6",
+              slate: "#0f172a"
+            },
+            fontFamily: {
+              sans: ['"PingFang SC"', "Inter", "Helvetica", "Arial", "sans-serif"]
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      body {
+        font-family: "PingFang SC", Inter, "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(135deg, #e0f2ff 0%, #fdfefe 40%, #f5fbff 100%);
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 34px;
+        box-shadow: 0 10px 40px rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.12);
+      }
+
+      .badge-pill {
+        box-shadow: inset 0 0 12px rgba(59, 130, 246, 0.3);
+      }
+    </style>
+  </head>
+  <body class="text-slate font-sans min-h-screen">
+    <main class="max-w-6xl mx-auto px-5 py-10 space-y-10">
+      <!-- 页面 0：封面 -->
+      <section class="glass-card p-0 overflow-hidden">
+        <div class="relative rounded-[34px] bg-gradient-to-br from-[#ff6b6b] via-[#f97316] to-[#fcd34d] text-white px-10 py-16 min-h-[620px] flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-sm font-semibold tracking-[0.3em]">
+              <span>中国电信</span>
+              <span class="text-white/80">|</span>
+              <span>China Telecom</span>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-white/15 border border-white/30 text-xs tracking-[0.3em] uppercase">科技洞察</span>
+          </div>
+          <div class="mt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <div class="space-y-5">
+              <span class="inline-flex items-center px-4 py-1 rounded-full bg-white/20 border border-white/30 text-xs font-semibold tracking-[0.3em]" id="coverYearBadge">2026</span>
+              <h1 class="text-4xl md:text-5xl font-semibold drop-shadow-lg" id="coverTitle">春节报告</h1>
+              <p class="text-sm md:text-base text-white/90 max-w-2xl" id="coverSummary">结合中国电信网络与位置大数据，洞察春节期间出行、消费、数智生活等场景变化，提供面向政府与企业的决策参考。 通过模块化设计可快速替换年份、主题与地市，实现不同专项应用。11</p>
+              <div class="flex flex-wrap gap-3 text-sm">
+                <span class="px-4 py-1 rounded-full bg-white/15 border border-white/20 font-semibold" id="coverYearLabel">年度：2026春节</span>
+                <span class="px-4 py-1 rounded-full bg-white/15 border border-white/20 font-semibold" id="coverThemeLabel">主题：文化旅游 · 数字城市</span>
+                <span class="px-4 py-1 rounded-full bg-white/15 border border-white/20 font-semibold" id="coverCityLabel">地市：马鞍山</span>
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="relative h-56 rounded-[28px] bg-white/20 border border-white/30 backdrop-blur-sm overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
+                <div class="absolute inset-6 rounded-3xl border border-white/30 flex flex-col justify-between p-6 text-white/90">
+                  <div>
+                    <p class="text-xs tracking-[0.3em] uppercase">城市场景</p>
+                    <p class="text-xl font-semibold mt-2" id="coverSceneName">智慧枢纽 · 江畔文化</p>
+                  </div>
+                  <div class="grid grid-cols-3 gap-4 text-xs">
+                    <div class="space-y-1">
+                      <p class="text-white/60">客流峰值</p>
+                      <p class="text-lg font-semibold text-white" id="coverFlowValue">68万</p>
+                    </div>
+                    <div class="space-y-1">
+                      <p class="text-white/60">热点商圈</p>
+                      <p class="text-lg font-semibold text-white" id="coverBizValue">4处</p>
+                    </div>
+                    <div class="space-y-1">
+                      <p class="text-white/60">网络覆盖</p>
+                      <p class="text-lg font-semibold text-white" id="coverNetValue">0.99</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8 flex flex-wrap items-center justify-between text-xs">
+            <div class="text-white/80 space-x-4">
+              <span>可替换元素：年度 / 主题 / 地市</span>
+              <span>项目名称：智慧出行专题</span>
+            </div>
+            <span class="text-white/70" id="coverPeriodLabel">报告周期：2026.2.1-2.10</span>
+          </div>
+        </div>
+      </section>      <!-- 页面 1 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-4">
+          <div>
+            <p class="uppercase tracking-[0.4em] text-xs">Page 01</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mt-2" id="page1Title">春节出行趋势</h2>
+          </div>
+          <p class="text-sm md:text-base text-white/90" id="page1Summary">腊月二八至初五出行热度逐日升高，整体增幅达到 32%， 初四晚间客流达到峰值，城市主要枢纽完成 98% 运力保障。</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/70">总客流</p>
+              <p class="text-3xl font-semibold text-white" id="page1TotalValue">128万人</p>
+              <p class="text-xs text-white/70 mt-1" id="page1TotalDesc">同比提升23%</p>
+            </div>
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/70">峰值时段</p>
+              <p class="text-2xl font-semibold text-white" id="page1PeakValue">初四 18:00</p>
+              <p class="text-xs text-white/70 mt-1" id="page1PeakDesc">客流密度2倍</p>
+            </div>
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/70">跨省出行</p>
+              <p class="text-2xl font-semibold text-white" id="page1CrossValue">0.42</p>
+              <p class="text-xs text-white/70 mt-1" id="page1CrossDesc">以长三角为主要目的地</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div class="xl:col-span-2 rounded-3xl bg-gradient-to-br from-white to-orange-50 p-4 border border-orange-100">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-lg font-semibold text-slate">客流趋势（万人）</h3>
+              <span class="text-xs text-slate/60 uppercase tracking-[0.3em]">七日走势</span>
+            </div>
+            <div id="flowTrendChart" class="h-72"></div>
+          </div>
+          <div class="rounded-3xl bg-gradient-to-br from-white to-orange-50 p-4 border border-orange-100">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-lg font-semibold text-slate">出行方式对比</h3>
+              <span class="text-xs uppercase tracking-[0.3em] text-slate/60">占比%</span>
+            </div>
+            <div id="travelCompareChart" class="h-64"></div>
+          </div>
+        </div>
+      </section>      <!-- 页面 2 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em]">Page 02</p>
+            <h2 class="text-2xl font-semibold mt-2" id="page2Title">省份偏好地图</h2>
+          </div>
+          <p class="text-sm text-white/90" id="page2Summary">节前热度由长三角向华南扩散，Top5 省份贡献 31%</span> 的跨省客流。</p>
+          <div class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em]" id="page2Highlights">
+            <span class="px-3 py-1 rounded-full bg-white/15 border border-white/20">华东占比 36%</span>
+            <span class="px-3 py-1 rounded-full bg-white/15 border border-white/20">川渝热度 +12%</span>
+            <span class="px-3 py-1 rounded-full bg-white/15 border border-white/20">返乡客流稳定</span>
+          </div>
+        </div>
+        <div class="flex flex-col lg:flex-row gap-6">
+          <div class="w-full lg:w-2/3 rounded-3xl bg-gradient-to-br from-white to-orange-50 border border-orange-100 p-4 flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-semibold text-slate text-lg">省份偏好热力</h3>
+              <span class="text-sm text-slate/60">单位：万人</span>
+            </div>
+            <div class="flex-1 flex items-center justify-center">
+              <div id="provinceMap" class="w-full h-full min-h-[360px]"></div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/3 space-y-4">
+            <div class="rounded-3xl border border-orange-100 bg-white/95 p-4">
+              <h4 class="text-lg font-semibold text-slate mb-3">Top 5 省份</h4>
+              <ul class="space-y-3 text-sm" id="page2TopProvinces">
+                <li class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 font-semibold text-slate"><span class="w-2.5 h-2.5 rounded-full bg-orange-400"></span>广东</span>
+                  <span class="text-orange-500 font-semibold">6.1%</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 font-semibold text-slate"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>四川</span>
+                  <span class="text-rose-500 font-semibold">5.4%</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 font-semibold text-slate"><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>河南</span>
+                  <span class="text-amber-500 font-semibold">4.9%</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 font-semibold text-slate"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>浙江</span>
+                  <span class="text-emerald-500 font-semibold">4.1%</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 font-semibold text-slate"><span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>湖南</span>
+                  <span class="text-blue-500 font-semibold">4.3%</span>
+                </li>
+              </ul>
+            </div>
+            <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-4">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="text-lg font-semibold text-slate">客源层次占比</h4>
+                <span class="text-xs text-slate/60">三层结构</span>
+              </div>
+              <div id="provinceRing" class="h-56"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 3 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em]">Page 03</p>
+            <h2 class="text-2xl font-semibold mt-2" id="page3Title">访客来源与留存分析</h2>
+          </div>
+          <p class="text-sm text-white/90" id="page3Summary">春节期间省外来访客流占比 58%，停留 3 天以上旅客显著增加， 省内 16 个地市呈现“多点分布 + 核心集聚”的热度格局。</span>，停留 3 天以上旅客显著增加，
+            省内 16 个地市呈现“多点分布 + 核心集聚”的热度格局。</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/70">省外来访</p>
+              <p class="text-2xl font-semibold mt-1">+18%</p>
+              <p class="text-xs text-white/70 mt-1">以江浙沪为主</p>
+            </div>
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/70">停留 3-4 天</p>
+              <p class="text-2xl font-semibold mt-1">26%</p>
+              <p class="text-xs text-white/70 mt-1">同比 +4.7%</p>
+            </div>
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/70">核心城市</p>
+              <p class="text-2xl font-semibold mt-1">合肥、芜湖</p>
+              <p class="text-xs text-white/70 mt-1">热度指数 80+</p>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-6">
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-4">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-slate">省外来访趋势</h3>
+              <span class="text-slate/60 text-sm">单位：万人</span>
+            </div>
+            <div id="visitorArea" class="h-64"></div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="rounded-3xl border border-orange-100 bg-white/95 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-semibold text-slate">停留天数分布</h3>
+                <span class="text-xs uppercase tracking-[0.3em] text-slate/50">天数</span>
+              </div>
+              <div id="stayBar" class="h-56"></div>
+            </div>
+            <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-semibold text-slate">安徽地市热力</h3>
+                <span class="text-xs uppercase tracking-[0.3em] text-slate/50">省内分布</span>
+              </div>
+              <div id="cityMiniMap" class="h-56"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 4 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em]">Page 04</p>
+            <h2 class="text-2xl font-semibold mt-2" id="page4Title">热点景区与商圈吸引力1</h2>
+          </div>
+          <p class="text-sm text-white/90" id="page4Summary">黄山、采石矶、滨江生态园为本期 Top3</p>
+          <div class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em]" id="page4Highlights">
+            <span class="px-3 py-1 rounded-full bg-white/15 border border-white/20">夜游占比 38%</span>
+            <span class="px-3 py-1 rounded-full bg-white/15 border border-white/20">主题活动 +26%</span>
+            <span class="px-3 py-1 rounded-full bg-white/15 border border-white/20">家庭游高峰</span>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white via-orange-50 to-white p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-slate">景区流量走势对比</h3>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate/50">多线趋势</span>
+          </div>
+          <div id="scenicMultiLine" class="h-72"></div>
+        </div>
+        <div class="rounded-3xl border border-orange-100 bg-white/95 p-6">
+          <div class="flex items-end gap-4 justify-between">
+            <div class="flex-1 text-center p-4 rounded-3xl bg-gradient-to-t from-orange-50 to-white border border-orange-100">
+              <p class="text-sm uppercase text-slate/50 tracking-[0.4em]">Silver</p>
+              <p class="text-xl font-semibold text-slate mt-2">第二名</p>
+              <h4 class="text-2xl font-semibold text-rose-500 mt-1">东湖生态园</h4>
+              <div class="h-20 rounded-2xl bg-gradient-to-r from-rose-100 to-orange-100 mt-3"></div>
+              <p class="text-slate/70 text-sm mt-2">客流量 8.9 万</p>
+            </div>
+            <div class="flex-1 text-center p-5 rounded-[32px] bg-gradient-to-t from-amber-100 via-white to-white border border-amber-300 shadow-lg scale-105">
+              <p class="text-sm uppercase text-amber-500 tracking-[0.4em]">Gold</p>
+              <p class="text-xl font-semibold text-slate mt-2">第一名</p>
+              <h4 class="text-3xl font-semibold text-amber-500 mt-1">雨山湖景区</h4>
+              <div class="h-24 rounded-3xl bg-gradient-to-r from-amber-200 to-orange-100 mt-3"></div>
+              <p class="text-slate/70 text-sm mt-2">客流量 10.6 万</p>
+            </div>
+            <div class="flex-1 text-center p-4 rounded-3xl bg-gradient-to-t from-orange-50 to-white border border-orange-100">
+              <p class="text-sm uppercase text-slate/50 tracking-[0.4em]">Bronze</p>
+              <p class="text-xl font-semibold text-slate mt-2">第三名</p>
+              <h4 class="text-2xl font-semibold text-orange-400 mt-1">紫湖花谷</h4>
+              <div class="h-20 rounded-2xl bg-gradient-to-r from-orange-100 to-rose-50 mt-3"></div>
+              <p class="text-slate/70 text-sm mt-2">客流量 7.5 万</p>
+            </div>
+          </div>
+          <div class="mt-6 overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead>
+                <tr class="text-slate/60 uppercase text-xs tracking-[0.3em]">
+                  <th class="pb-2">Rank</th>
+                  <th class="pb-2">景区</th>
+                  <th class="pb-2">亮点活动</th>
+                  <th class="pb-2">客流量 (万)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-orange-100">
+                <tr>
+                  <td class="py-2 text-orange-500 font-semibold">4</td>
+                  <td class="py-2">滨江书屋</td>
+                  <td class="py-2">滨水光影节</td>
+                  <td class="py-2">6.8</td>
+                </tr>
+                <tr>
+                  <td class="py-2 text-orange-500 font-semibold">5</td>
+                  <td class="py-2">龙河古街</td>
+                  <td class="py-2">国风巡游</td>
+                  <td class="py-2">5.9</td>
+                </tr>
+                <tr>
+                  <td class="py-2 text-orange-500 font-semibold">6</td>
+                  <td class="py-2">天井湖景区</td>
+                  <td class="py-2">水上灯会</td>
+                  <td class="py-2">5.6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 5 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-red-400 to-rose-500 text-white p-6">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 05</p>
+          <h2 class="text-2xl font-semibold mt-2" id="page5Title">重点区域分析 · 景区偏好</h2>
+          <p class="text-sm text-white/90 mt-2" id="page5Summary">人气景区 Top 榜与热门线路推荐，展现春节期间游客对主题景点的偏好结构。</p>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div class="rounded-3xl bg-white/95 border border-orange-200 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-semibold text-slate">人气景区 Top 榜</span>
+              <span class="px-4 py-1 rounded-full text-xs tracking-[0.3em] bg-orange-50 text-orange-600 border border-orange-100">HOT</span>
+            </div>
+            <p class="text-sm text-slate/70">数据显示，游客更偏爱 4A 景区、公园广场、自然景观等人气点位。</p>
+            <div class="space-y-4">
+              <div class="space-y-4 text-sm font-medium text-slate">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-orange-100 text-orange-500 flex items-center justify-center text-lg">4A</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="font-semibold text-slate">4A 景区</span>
+                      <span class="text-orange-500">42.6 万</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-orange-50 mt-2 relative">
+                      <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-orange-400 to-amber-400" style="width: 92%"></div>
+                    </div>
+                  </div>
+                  <span class="text-xs text-orange-500 font-semibold">HOT</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-red-100 text-red-500 flex items-center justify-center text-lg">公</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="font-semibold text-slate">公园广场</span>
+                      <span class="text-red-500">19.1 万</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-red-50 mt-2 relative">
+                      <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-red-400 to-rose-400" style="width: 70%"></div>
+                    </div>
+                  </div>
+                  <span class="text-xs text-red-500 font-semibold">HOT</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-500 flex items-center justify-center text-lg">自</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="font-semibold text-slate">自然景观</span>
+                      <span class="text-amber-500">14 万</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-amber-50 mt-2 relative">
+                      <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400" style="width: 58%"></div>
+                    </div>
+                  </div>
+                  <span class="text-xs text-amber-500 font-semibold">HOT</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-500 flex items-center justify-center text-lg">展</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="font-semibold text-slate">展览馆</span>
+                      <span class="text-blue-500">6.3 万</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-blue-50 mt-2 relative">
+                      <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-blue-400 to-sky-400" style="width: 38%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-green-100 text-green-500 flex items-center justify-center text-lg">动</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="font-semibold text-slate">动物园</span>
+                      <span class="text-green-500">3.4 万</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-green-50 mt-2 relative">
+                      <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-green-400 to-emerald-400" style="width: 24%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-500 flex items-center justify-center text-lg">村</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="font-semibold text-slate">美丽乡村</span>
+                      <span class="text-purple-500">2 万</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-purple-50 mt-2 relative">
+                      <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-purple-400 to-fuchsia-400" style="width: 18%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center text-lg">古</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="font-semibold text-slate">名胜古迹</span>
+                      <span class="text-slate/70">1.7 万</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-slate-50 mt-2 relative">
+                      <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-slate-400 to-slate-500" style="width: 15%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl bg-gradient-to-br from-orange-50 to-pink-50 border border-orange-100 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-slate">热门旅游路线</h3>
+              <span class="text-xs uppercase tracking-[0.3em] text-slate/60">推荐</span>
+            </div>
+            <div class="space-y-5">
+              <div>
+                <div class="flex items-center gap-2 text-orange-500 font-semibold">
+                  <span class="text-sm px-2 py-1 bg-white/80 rounded-full border border-orange-100">线路一</span>
+                  <span>亲子自然游</span>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-3 text-sm text-slate">
+                  <div class="rounded-2xl bg-white/70 border border-orange-100 p-3 text-center">天门山索道</div>
+                  <div class="rounded-2xl bg-white/70 border border-orange-100 p-3 text-center">东湖湿地露营</div>
+                  <div class="rounded-2xl bg-white/70 border border-orange-100 p-3 text-center">滨河广场</div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 text-blue-500 font-semibold">
+                  <span class="text-sm px-2 py-1 bg-white/80 rounded-full border border-blue-100">线路二</span>
+                  <span>城市文化游</span>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-3 text-sm text-slate">
+                  <div class="rounded-2xl bg-white/70 border border-blue-100 p-3 text-center">徽派文化园</div>
+                  <div class="rounded-2xl bg-white/70 border border-blue-100 p-3 text-center">滨江艺术展</div>
+                  <div class="rounded-2xl bg-white/70 border border-blue-100 p-3 text-center">大戏楼巡礼</div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 text-fuchsia-500 font-semibold">
+                  <span class="text-sm px-2 py-1 bg-white/80 rounded-full border border-fuchsia-100">线路三</span>
+                  <span>秘境轻徒步</span>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-3 text-sm text-slate">
+                  <div class="rounded-2xl bg-white/70 border border-fuchsia-100 p-3 text-center">竹海花径</div>
+                  <div class="rounded-2xl bg-white/70 border border-fuchsia-100 p-3 text-center">徽州古道</div>
+                  <div class="rounded-2xl bg-white/70 border border-fuchsia-100 p-3 text-center">天柱山云廊</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 6 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 to-rose-400 text-white p-6">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 06</p>
+          <h2 class="text-2xl font-semibold mt-2" id="page6Title">商圈客流洞察</h2>
+          <p class="text-sm text-white/90 mt-2" id="page6Summary">春节期间，全市主要商圈客流达到 86.9 万人（较国庆增长 5.2%），1 月 27 日客流最高。</span>（较国庆增长 <span class="font-semibold">5.2%</span>），1 月 27 日客流最高。
+          </p>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-slate">商圈客流趋势</h3>
+              <span class="text-sm text-slate/60">单位：万人</span>
+            </div>
+            <div id="mallFlowChart" class="h-64"></div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold text-slate">TOP5 热门商圈</h3>
+              <span class="text-xs uppercase tracking-[0.3em] text-orange-500">人流排名</span>
+            </div>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-2xl bg-orange-100 text-orange-500 flex items-center justify-center font-semibold">1</div>
+                <div class="flex-1 text-sm">
+                  <p class="font-semibold text-slate">铜陵市长江正商圈</p>
+                  <p class="text-slate/60">高端零售 + 夜游经济</p>
+                </div>
+                <span class="text-orange-500 font-semibold text-lg">35.4 万</span>
+              </li>
+              <li class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-400 flex items-center justify-center font-semibold">2</div>
+                <div class="flex-1 text-sm">
+                  <p class="font-semibold text-slate">铜陵万达广场</p>
+                  <p class="text-slate/60">亲子+餐饮+影院</p>
+                </div>
+                <span class="text-orange-500 font-semibold text-lg">25.1 万</span>
+              </li>
+              <li class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-400 flex items-center justify-center font-semibold">3</div>
+                <div class="flex-1 text-sm">
+                  <p class="font-semibold text-slate">枞阳滨江商圈</p>
+                  <p class="text-slate/60">滨河景观+文创市集</p>
+                </div>
+                <span class="text-orange-500 font-semibold text-lg">22.3 万</span>
+              </li>
+              <li class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-400 flex items-center justify-center font-semibold">4</div>
+                <div class="flex-1 text-sm">
+                  <p class="font-semibold text-slate">铜陵县景湖湾商圈</p>
+                  <p class="text-slate/60">滨水步行街</p>
+                </div>
+                <span class="text-orange-500 font-semibold text-lg">15.4 万</span>
+              </li>
+              <li class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-2xl bg-orange-50 text-orange-400 flex items-center justify-center font-semibold">5</div>
+                <div class="flex-1 text-sm">
+                  <p class="font-semibold text-slate">铜陵八佰伴</p>
+                  <p class="text-slate/60">精品百货+跨年活动</p>
+                </div>
+                <span class="text-orange-500 font-semibold text-lg">14.6 万</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 7 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 to-rose-500 text-white p-6">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 07</p>
+          <h2 class="text-2xl font-semibold mt-2" id="page7Title">商圈人群画像</h2>
+          <p class="text-sm text-white/90 mt-2" id="page7Summary">商圈到访人群中，女性占比略高，为 55%，年龄主要集中在 35-50 岁区间。</p>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold text-slate">性别分布</h3>
+              <p class="text-sm text-slate/60">以写实插画的队列表现不同性别的客流比例。</p>
+            </div>
+            <div class="space-y-4">
+              <div class="rounded-2xl bg-orange-50/60 p-5">
+                <div class="flex items-center justify-between">
+                  <div class="text-slate font-semibold">男性</div>
+                  <div class="text-slate/70 text-sm">人数：38.9 万</div>
+                </div>
+                <div class="mt-3 flex justify-between text-xs text-slate/70 uppercase tracking-[0.3em]">
+                  <span>占比 45%</span>
+                </div>
+                <div class="mt-3 flex gap-2 text-2xl">
+                  <span class="text-slate/70">🚶</span>
+                  <span class="text-slate/70">🚶</span>
+                  <span class="text-slate/70">🚶</span>
+                  <span class="text-slate/70">🚶</span>
+                  <span class="text-slate/20">🚶</span>
+                  <span class="text-slate/20">🚶</span>
+                </div>
+              </div>
+              <div class="rounded-2xl bg-rose-50/70 p-5">
+                <div class="flex items-center justify-between">
+                  <div class="text-slate font-semibold">女性</div>
+                  <div class="text-slate/70 text-sm">人数：48.3 万</div>
+                </div>
+                <div class="mt-3 flex justify-between text-xs text-slate/70 uppercase tracking-[0.3em]">
+                  <span>占比 55%</span>
+                </div>
+                <div class="mt-3 flex gap-2 text-2xl">
+                  <span class="text-rose-400">🚶‍♀️</span>
+                  <span class="text-rose-400">🚶‍♀️</span>
+                  <span class="text-rose-400">🚶‍♀️</span>
+                  <span class="text-rose-400">🚶‍♀️</span>
+                  <span class="text-rose-300">🚶‍♀️</span>
+                  <span class="text-rose-200">🚶‍♀️</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-slate">年龄分布</h3>
+              <span class="text-xs uppercase tracking-[0.3em] text-orange-500">人群结构</span>
+            </div>
+            <div id="ageDistributionChart" class="h-64"></div>
+          </div>
+        </div>
+      </section>
+      <!-- 页面 8 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-500 via-rose-500 to-red-400 text-white p-6 space-y-4">
+          <div class="flex flex-col gap-2">
+            <p class="uppercase tracking-[0.4em] text-xs">Page 08</p>
+            <h2 class="text-2xl font-semibold" id="page8Title">重点交通运行</h2>
+          </div>
+          <p class="text-sm text-white/90" id="page8Summary">交通枢纽整体客流约 262.1 万人（较国庆上升 8.6%），农历初四客流攀升至 68.6 万人，核心站点的疏导效率成为保证旅客体验的关键。</span>（较国庆上升 <span class="font-semibold">8.6%</span>），农历初四客流攀升至
+            <span class="font-semibold">68.6 万人</span>，核心站点的疏导效率成为保证旅客体验的关键。
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/80">峰值日</p>
+              <p class="text-2xl font-semibold mt-1">2 月 3 日</p>
+              <p class="text-xs text-white/70">沪宁方向动车密度翻倍</p>
+            </div>
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/80">平均客流</p>
+              <p class="text-2xl font-semibold mt-1">36.4 万</p>
+              <p class="text-xs text-white/70">24 小时滚动统计</p>
+            </div>
+            <div class="rounded-2xl bg-white/15 border border-white/20 p-4">
+              <p class="text-white/80">同比增幅</p>
+              <p class="text-2xl font-semibold mt-1">+6.3%</p>
+              <p class="text-xs text-white/70">跨省迁徙贡献最大</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div class="xl:col-span-2 rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span class="inline-flex items-center text-xs font-semibold tracking-[0.3em] text-orange-500">交通枢纽人流</span>
+                <h3 class="text-lg font-semibold text-slate mt-2">重点站点日客流走势</h3>
+              </div>
+              <span class="text-sm text-slate/60">单位：万人次</span>
+            </div>
+            <div id="criticalHubTrendChart" class="h-72"></div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-4">
+            <div>
+              <h3 class="text-lg font-semibold text-slate">核心枢纽热度</h3>
+              <p class="text-sm text-slate/60">围绕马鞍山 90 分钟圈的高频换乘站点</p>
+            </div>
+            <div class="space-y-4 text-sm">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 font-semibold flex items-center justify-center">高铁</div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between font-semibold text-slate">
+                    <span>马鞍山南站</span>
+                    <span class="text-blue-500">86.5 万</span>
+                  </div>
+                  <p class="text-xs text-slate/60 mt-1">早高峰增幅 +7.8%</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-500 font-semibold flex items-center justify-center">机场</div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between font-semibold text-slate">
+                    <span>花山机场</span>
+                    <span class="text-rose-500">64.3 万</span>
+                  </div>
+                  <p class="text-xs text-slate/60 mt-1">红眼航班占比 38%</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-500 font-semibold flex items-center justify-center">高速</div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between font-semibold text-slate">
+                    <span>宁马高速东</span>
+                    <span class="text-emerald-500">58.1 万</span>
+                  </div>
+                  <p class="text-xs text-slate/60 mt-1">实时通行 1.3 倍</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 font-semibold flex items-center justify-center">港口</div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between font-semibold text-slate">
+                    <span>郑蒲港码头</span>
+                    <span class="text-amber-500">41.6 万</span>
+                  </div>
+                  <p class="text-xs text-slate/60 mt-1">夜航班增至 22 班</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div class="xl:col-span-2 rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-slate">跨城流向观察</h3>
+              <span class="text-sm text-slate/60">来源：客流大数据</span>
+            </div>
+            <div id="criticalHubMap" class="h-72"></div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 flex flex-col gap-4">
+            <div>
+              <p class="text-lg font-semibold text-slate">热门方向排行</p>
+              <p class="text-sm text-slate/60">线路优先级由日均流量排序</p>
+            </div>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-center justify-between rounded-2xl border border-orange-100 px-4 py-3">
+                <span class="font-semibold text-slate">马鞍山 → 南京南</span>
+                <span class="text-orange-500 font-semibold">15.7 万人</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-blue-100 px-4 py-3">
+                <span class="font-semibold text-slate">马鞍山 → 合肥南</span>
+                <span class="text-blue-500 font-semibold">12.3 万人</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-emerald-100 px-4 py-3">
+                <span class="font-semibold text-slate">马鞍山 → 芜湖站</span>
+                <span class="text-emerald-500 font-semibold">9.8 万人</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-slate-100 px-4 py-3">
+                <span class="font-semibold text-slate">马鞍山 → 黄山北</span>
+                <span class="text-slate font-semibold">6.2 万人</span>
+              </li>
+            </ul>
+            <p class="text-sm text-slate/70 leading-relaxed">
+              通过流向分析，高速流量最大的通道来自 <span class="text-orange-500 font-semibold">沪渝高速</span>，宁马城际轨交则加速放大“小时生活圈”效应。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 9 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-3">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 09</p>
+          <h2 class="text-2xl font-semibold" id="page9Title">通信业务分析 · 数据连接1</h2>
+          <p class="text-sm text-white/90" id="page9Summary">春节期间同日均流量较节前增长 6.7%，高速、景区、机场等重点区域的上网需求持续放大，5G 流量贡献超过三成。</span>，高速、景区、机场等重点区域的上网需求持续放大，5G 流量贡献超过三成。
+          </p>
+        </div>
+        <div class="space-y-6">
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-full bg-white/70 border border-orange-100 text-xs font-semibold text-orange-500">手机流量使用分析</span>
+                <p class="text-sm text-slate/60">日均流量较节前 +6.7%</p>
+              </div>
+              <span class="text-sm text-slate/60">单位：TB</span>
+            </div>
+            <div id="mobileTrafficUsageChart" class="h-64"></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+              <div class="rounded-2xl border border-orange-100 bg-white/80 p-3">
+                <p class="text-slate/60">峰值日</p>
+                <p class="text-lg font-semibold text-slate mt-1">2 月 2 日</p>
+              </div>
+              <div class="rounded-2xl border border-blue-100 bg-white/80 p-3">
+                <p class="text-slate/60">峰值流量</p>
+                <p class="text-lg font-semibold text-blue-500 mt-1">168 TB</p>
+              </div>
+              <div class="rounded-2xl border border-emerald-100 bg-white/80 p-3">
+                <p class="text-slate/60">5G 占比</p>
+                <p class="text-lg font-semibold text-emerald-500 mt-1">34%</p>
+              </div>
+              <div class="rounded-2xl border border-rose-100 bg-white/80 p-3">
+                <p class="text-slate/60">低峰时段</p>
+                <p class="text-lg font-semibold text-rose-500 mt-1">02:00</p>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-full bg-orange-50 border border-orange-100 text-xs font-semibold text-orange-500">重点区域上网流量</span>
+                <p class="text-sm text-slate/60">高速 +5.2%，高铁 +6.4%</p>
+              </div>
+              <span class="text-sm text-slate/60">日均流量 / 增长率</span>
+            </div>
+            <div id="keyRegionNetBarChart" class="h-64"></div>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center justify-between">
+                <span class="text-slate/70">景区 Wi-Fi 覆盖率</span>
+                <span class="font-semibold text-slate">98%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate/70">高铁站换乘区域</span>
+                <span class="font-semibold text-slate">峰值 23 TB</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate/70">机场候机楼</span>
+                <span class="font-semibold text-slate">同比 +5.2%</span>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-full bg-white/80 border border-orange-100 text-xs font-semibold text-orange-500">通话使用分析</span>
+                <p class="text-sm text-slate/60">除夕后迎来小高峰</p>
+              </div>
+              <span class="text-sm text-slate/60">单位：万次 / 万户</span>
+            </div>
+            <div id="voiceUsageDetailChart" class="h-64"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+              <div class="rounded-2xl border border-orange-100 bg-white/80 p-3">
+                <p class="text-slate/60">峰值通话</p>
+                <p class="text-lg font-semibold text-orange-500 mt-1">125.7 万次</p>
+              </div>
+              <div class="rounded-2xl border border-blue-100 bg-white/80 p-3">
+                <p class="text-slate/60">周环比</p>
+                <p class="text-lg font-semibold text-blue-500 mt-1">+3.8%</p>
+              </div>
+              <div class="rounded-2xl border border-emerald-100 bg-white/80 p-3">
+                <p class="text-slate/60">高清视频拨测</p>
+                <p class="text-lg font-semibold text-emerald-500 mt-1">91% 顺畅</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 10 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 to-rose-500 text-white p-6 space-y-3">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 10</p>
+          <h2 class="text-2xl font-semibold" id="page10Title">通信业务分析 · ITV 活跃</h2>
+          <p class="text-sm text-white/90" id="page10Summary">除夕夜通过天翼高清收看春晚人数飙升，年初一达到峰值。直播互动与回看栏目呈现“白天资讯、夜间娱乐”的交替节奏。</p>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div class="xl:col-span-2 rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span class="px-3 py-1 rounded-full bg-white/80 border border-orange-100 text-xs font-semibold text-orange-500">ITV 活跃曲线</span>
+                <h3 class="text-lg font-semibold text-slate mt-2">日活跃用户走势</h3>
+              </div>
+              <span class="text-sm text-slate/60">单位：万人户</span>
+            </div>
+            <div id="itvEngagementChart" class="h-72"></div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-4">
+            <div>
+              <h3 class="text-lg font-semibold text-slate">亮点摘要</h3>
+              <p class="text-sm text-slate/60">年初一达到 6.9 万户，互动专区使用时长提升 23%</p>
+            </div>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-center justify-between rounded-2xl border border-orange-100 px-4 py-3">
+                <span class="text-slate">全天户均观看时长</span>
+                <span class="text-orange-500 font-semibold">3.2 小时</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-blue-100 px-4 py-3">
+                <span class="text-slate">互动答题参与</span>
+                <span class="text-blue-500 font-semibold">18.6 万次</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-emerald-100 px-4 py-3">
+                <span class="text-slate">家庭娱乐包新增</span>
+                <span class="text-emerald-500 font-semibold">4.2 万户</span>
+              </li>
+            </ul>
+            <p class="text-sm text-slate/70">
+              黄金时段集中在 19:30-22:00，亲子娱乐与本地资讯频道带来最多新增用户。
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold text-slate">分类日均活跃攀升</h3>
+              <span class="text-sm text-slate/60">周环比表现</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div class="rounded-2xl border border-blue-100 bg-blue-50/80 p-4 text-center">
+                <p class="text-slate/60">看直播</p>
+                <p class="text-2xl font-semibold text-blue-500 mt-2">5.4 万人日</p>
+                <p class="text-xs text-blue-400">周环比 +16.7%</p>
+              </div>
+              <div class="rounded-2xl border border-emerald-100 bg-emerald-50/80 p-4 text-center">
+                <p class="text-slate/60">回看</p>
+                <p class="text-2xl font-semibold text-emerald-500 mt-2">0.6 万人日</p>
+                <p class="text-xs text-emerald-400">周环比 +12.7%</p>
+              </div>
+              <div class="rounded-2xl border border-rose-100 bg-rose-50/80 p-4 text-center">
+                <p class="text-slate/60">点播</p>
+                <p class="text-2xl font-semibold text-rose-500 mt-2">0.1 万人日</p>
+                <p class="text-xs text-rose-400">周环比 +16.9%</p>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-slate">栏目偏好结构</h3>
+              <span class="text-sm text-slate/60">单位：%</span>
+            </div>
+            <div id="itvCategoryChart" class="h-64"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 11 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-red-500 text-white p-6 space-y-3">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 11</p>
+          <h2 class="text-2xl font-semibold" id="page11Title">互联网行为分析 · 头部 App</h2>
+          <p class="text-sm text-white/90" id="page11Summary">春节期间短视频与直播仍是最受欢迎的线上娱乐场景，社交拜年与生活服务类应用保持稳定渗透，线下场景向线上延伸明显。</p>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-slate">头部 App 流量使用分析</h3>
+              <span class="text-sm text-slate/60">占比对比</span>
+            </div>
+            <div id="topAppRoseChart" class="h-72"></div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <p class="text-lg font-semibold text-slate">重点品类指标</p>
+              <span class="text-sm text-slate/60">单位：%</span>
+            </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-center justify-between rounded-2xl border border-orange-100 px-4 py-3">
+                <span class="text-slate font-semibold">短视频 / 直播</span>
+                <span class="text-orange-500 font-semibold">17.7</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-blue-100 px-4 py-3">
+                <span class="text-slate font-semibold">社交聊天</span>
+                <span class="text-blue-500 font-semibold">13.6</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-emerald-100 px-4 py-3">
+                <span class="text-slate font-semibold">本地生活</span>
+                <span class="text-emerald-500 font-semibold">10.2</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-rose-100 px-4 py-3">
+                <span class="text-slate font-semibold">资讯阅读</span>
+                <span class="text-rose-500 font-semibold">8.5</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-slate-100 px-4 py-3">
+                <span class="text-slate font-semibold">出行 / 地图</span>
+                <span class="text-slate font-semibold">6.4</span>
+              </div>
+            </div>
+            <p class="text-sm text-slate/70">
+              直播带动的“云逛街”热度最高，社交拜年仍保持平均 28 条消息/人，地图 + 外卖需求同步回升。
+            </p>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-slate">场景洞察</h3>
+            <span class="text-sm text-slate/60">行为关键词</span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+            <span class="px-4 py-2 rounded-full border border-orange-100 bg-orange-50/60 text-orange-500 font-semibold text-center">短视频看年味</span>
+            <span class="px-4 py-2 rounded-full border border-blue-100 bg-blue-50/60 text-blue-500 font-semibold text-center">社交拜年</span>
+            <span class="px-4 py-2 rounded-full border border-emerald-100 bg-emerald-50/60 text-emerald-500 font-semibold text-center">出行导航</span>
+            <span class="px-4 py-2 rounded-full border border-rose-100 bg-rose-50/60 text-rose-500 font-semibold text-center">线上购物</span>
+          </div>
+          <div class="space-y-3 text-sm">
+            <div>
+              <div class="flex items-center justify-between text-slate/70">
+                <span>拜年视频通话</span>
+                <span>时长 +42%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100 mt-2">
+                <div class="h-2 rounded-full bg-gradient-to-r from-orange-400 to-rose-400" style="width: 72%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-slate/70">
+                <span>地图+出行组合</span>
+                <span>召回率 65%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100 mt-2">
+                <div class="h-2 rounded-full bg-gradient-to-r from-blue-400 to-blue-600" style="width: 65%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between text-slate/70">
+                <span>本地生活券点击</span>
+                <span>转化 +18%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100 mt-2">
+                <div class="h-2 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600" style="width: 58%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 页面 12 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-3 shadow-inner">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 12</p>
+          <h2 class="text-2xl font-semibold" id="page12Title">互联网行为分析 · 活跃应用</h2>
+          <p class="text-sm text-white/90" id="page12Summary">头部 App 的活跃人数保持高位，微信、抖音、短视频平台依旧占据日活前三；生活场景类 App 在返程阶段快速回暖。</p>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span class="inline-flex items-center px-3 py-1 rounded-full border border-white/60 bg-white/70 text-xs font-semibold text-orange-500">
+                  头部 App 日活跃度
+                </span>
+                <h3 class="text-lg font-semibold text-slate mt-3">TOP App 日活人数与环比</h3>
+              </div>
+              <span class="text-sm text-slate/60">单位：万人 / %</span>
+            </div>
+            <div id="topAppDualChart" class="h-72"></div>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white/95 p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-lg font-semibold text-slate">增长亮点</p>
+                <p class="text-sm text-slate/60">微信日活 2240 万，周环比 +1.5%</p>
+              </div>
+              <span class="text-xs uppercase tracking-[0.3em] text-orange-500">关键洞察</span>
+            </div>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-center justify-between rounded-2xl border border-orange-100 bg-orange-50/80 px-4 py-3">
+                <span class="font-semibold text-slate">抖音 / 短视频</span>
+                <span class="text-orange-500 font-semibold">增长 +3.2%</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-blue-100 bg-blue-50/70 px-4 py-3">
+                <span class="font-semibold text-slate">微博 / 资讯</span>
+                <span class="text-blue-500 font-semibold">峰值 1450 万</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-emerald-100 bg-emerald-50/70 px-4 py-3">
+                <span class="font-semibold text-slate">百度 / 搜索</span>
+                <span class="text-emerald-500 font-semibold">周环比 +0.8%</span>
+              </li>
+              <li class="flex items-center justify-between rounded-2xl border border-rose-100 bg-rose-50/70 px-4 py-3">
+                <span class="font-semibold text-slate">出行助手类</span>
+                <span class="text-rose-500 font-semibold">返程活跃回升</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-white/70 border border-orange-100 text-xs font-semibold text-orange-500">出行助手 App 活跃度分析</span>
+              <h3 class="text-lg font-semibold text-slate mt-2">行程规划类 App 活跃趋势</h3>
+            </div>
+            <p class="text-sm text-slate/60">12306、携程、高德出行等 Top3 应用带动整体曲线走高，初三达到 208 万活跃。</p>
+          </div>
+          <div id="travelHelperTrendChart" class="h-64"></div>
+        </div>
+      </section>
+
+      <!-- 页面 13 -->
+      <section class="glass-card p-8 space-y-6">
+        <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-3 shadow-inner">
+          <p class="uppercase tracking-[0.4em] text-xs">Page 13</p>
+          <h2 class="text-2xl font-semibold" id="page13Title">互联网行为分析 · 抖音应用</h2>
+          <p class="text-sm text-white/90" id="page13Summary">抖音热点话题持续升温，景区类打卡榜单与热搜词共同塑造“旅行 + 年味”的互动场景，短视频成为城市营销的重要抓手。</p>
+        </div>
+        <div class="rounded-3xl border border-orange-100 bg-gradient-to-br from-white to-orange-50 p-6 space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1 rounded-full bg-white/80 border border-orange-100 text-xs font-semibold text-orange-500">抖音热点话题</span>
+            <p class="text-sm text-slate/70">打卡景点 TOP5 与热搜榜单</p>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <div class="rounded-3xl bg-white/90 p-5 border border-orange-100 space-y-4">
+              <div class="flex items-center justify-between">
+                <p class="text-lg font-semibold text-slate">打卡景点排行榜</p>
+                <span class="text-xs text-slate/60">来源：抖音地标话题</span>
+              </div>
+              <ul class="space-y-3 text-sm">
+                <li class="flex items-center gap-3 rounded-2xl bg-orange-50/70 px-4 py-3">
+                  <span class="text-amber-500 text-lg font-semibold">No.1</span>
+                  <div class="flex-1">
+                    <p class="font-semibold text-slate">天井湖景区</p>
+                    <p class="text-xs text-slate/60">曝光 1193 万 · 热度值 95</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3 rounded-2xl bg-orange-50/40 px-4 py-3">
+                  <span class="text-amber-400 text-lg font-semibold">No.2</span>
+                  <div class="flex-1">
+                    <p class="font-semibold text-slate">永泉旅游度假区</p>
+                    <p class="text-xs text-slate/60">热度值 88</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3 rounded-2xl bg-orange-50/40 px-4 py-3">
+                  <span class="text-amber-300 text-lg font-semibold">No.3</span>
+                  <div class="flex-1">
+                    <p class="font-semibold text-slate">吾悦广场</p>
+                    <p class="text-xs text-slate/60">热度值 83</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3 rounded-2xl bg-orange-50/40 px-4 py-3">
+                  <span class="text-slate font-semibold">No.4</span>
+                  <div class="flex-1">
+                    <p class="font-semibold text-slate">梨桥水镇景区</p>
+                    <p class="text-xs text-slate/60">热度值 79</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3 rounded-2xl bg-orange-50/40 px-4 py-3">
+                  <span class="text-slate font-semibold">No.5</span>
+                  <div class="flex-1">
+                    <p class="font-semibold text-slate">翠湖公园</p>
+                    <p class="text-xs text-slate/60">热度值 75</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="rounded-3xl bg-white/90 p-5 border border-orange-100 flex flex-col gap-4">
+              <div class="flex items-center justify-between">
+                <p class="text-lg font-semibold text-slate">热搜话题榜</p>
+                <span class="text-xs text-slate/60">抖音热搜指数</span>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="rounded-2xl bg-gradient-to-r from-orange-400 to-rose-400 px-4 py-3 text-white shadow">
+                  <div class="flex items-center justify-between">
+                    <span>央视晚会节目单公布</span>
+                    <span class="font-semibold">1193 万</span>
+                  </div>
+                  <p class="text-xs text-white/70 mt-1">关注度 HOT</p>
+                </div>
+                <div class="rounded-2xl bg-gradient-to-r from-orange-300 to-rose-300 px-4 py-3 text-white shadow">
+                  <div class="flex items-center justify-between">
+                    <span>DeepSeek 键盘隐藏技巧</span>
+                    <span class="font-semibold">1175 万</span>
+                  </div>
+                  <p class="text-xs text-white/70 mt-1">讨论度 HOT</p>
+                </div>
+                <div class="rounded-2xl bg-gradient-to-r from-orange-200 to-rose-200 px-4 py-3 text-slate">
+                  <div class="flex items-center justify-between">
+                    <span>穿梭科技感应祝福上春晚</span>
+                    <span class="font-semibold text-slate">1154 万</span>
+                  </div>
+                  <p class="text-xs text-slate/60 mt-1">热度指数 92</p>
+                </div>
+                <div class="rounded-2xl bg-white px-4 py-3 border border-orange-50 flex items-center justify-between">
+                  <span class="text-slate">柯河石桩出意想不到士兵</span>
+                  <span class="font-semibold text-slate">1122 万</span>
+                </div>
+                <div class="rounded-2xl bg-white px-4 py-3 border border-orange-50 flex items-center justify-between">
+                  <span class="text-slate">聊呗云票房已破 20 亿</span>
+                  <span class="font-semibold text-slate">925 万</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate/60">注：热搜指数为话题 24 小时曝光估算值，单位：万。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="page-data.js"></script>
+    <script>
+      const PAGE1_DATA = /* PAGE1_DATA_START */ {
+  "title": "",
+  "summary": "",
+  "total": {},
+  "peak": {},
+  "cross": {},
+  "flow": {
+    "times": [
+      "腊月二八",
+      "除夕",
+      "初一",
+      "初二",
+      "初三",
+      "初四",
+      "初五"
+    ],
+    "values": [
+      40,
+      35,
+      57,
+      68,
+      72,
+      80,
+      63
+    ]
+  },
+  "travel": {
+    "labels": [
+      "跨省游",
+      "省内游",
+      "市内游"
+    ],
+    "values": [
+      21,
+      29,
+      52
+    ]
+  }
+} /* PAGE1_DATA_END */;
+
+      function updateText(id, value) {
+        if (!value) return;
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      }
+
+      function renderList(id, items, builder) {
+        if (!Array.isArray(items) || !items.length) return;
+        const container = document.getElementById(id);
+        if (!container) return;
+        container.innerHTML = items.map(builder).join("");
+      }
+
+      function renderBadges(id, items) {
+        const toText = (item) =>
+          typeof item === "object" && item !== null
+            ? (item.value ?? item.label ?? "")
+            : String(item ?? "");
+        renderList(
+          id,
+          (items || []).filter(Boolean),
+          value =>
+            `<span class="px-3 py-1 rounded-full bg-white/15 border border-white/20">${toText(value)}</span>`
+        );
+      }
+
+      function renderTopProvinces(items) {
+        const dotClasses = [
+          "bg-orange-400",
+          "bg-rose-400",
+          "bg-amber-400",
+          "bg-emerald-400",
+          "bg-blue-400"
+        ];
+        renderList(
+          "page2TopProvinces",
+          items,
+          (item, index) => {
+            const dot = dotClasses[index % dotClasses.length];
+            return `<li class="flex items-center justify-between">
+              <span class="flex items-center gap-2 font-semibold text-slate">
+                <span class="w-2.5 h-2.5 rounded-full ${dot}"></span>${item?.name ?? ""}
+              </span>
+              <span class="text-orange-500 font-semibold">${item?.value ?? ""}</span>
+            </li>`;
+          }
+        );
+      }
+
+      function normalizeNumberList(list) {
+        return (list || []).map(item => ({
+          name: item?.name ?? "",
+          value: Number(item?.value) || 0
+        }));
+      }
+
+      function applyPage2Data(data = {}) {
+        if (!data || typeof data !== "object") {
+          return {
+            heatmap: [],
+            ring: { core: [], potential: [], position: [] }
+          };
+        }
+        updateText("page2Title", data.title);
+        updateText("page2Summary", data.summary);
+        renderBadges("page2Highlights", data.highlights);
+        renderTopProvinces(
+          (data.topProvinces || []).map(item => ({
+            name: item?.name ?? "",
+            value: item?.value ? `${item.value}%` : ""
+          }))
+        );
+
+        return {
+          heatmap: normalizeNumberList(data.heatmap),
+          ring: {
+            core: normalizeNumberList(data.ring?.core),
+            potential: normalizeNumberList(data.ring?.potential),
+            position: normalizeNumberList(data.ring?.position)
+          }
+        };
+      }
+
+      function applyPageNData(n, data = {}) {
+        if (!data || typeof data !== "object") return;
+        updateText(`page${n}Title`, data.title);
+        updateText(`page${n}Summary`, data.summary);
+        if (data.highlights && Array.isArray(data.highlights)) {
+          renderBadges(`page${n}Highlights`, data.highlights);
+        }
+      }
+
+      function applyPage1Data(data) {
+        updateText("page1Title", data.title);
+        updateText("page1Summary", data.summary);
+        updateText("page1TotalValue", data.total?.value);
+        updateText("page1TotalDesc", data.total?.desc);
+        updateText("page1PeakValue", data.peak?.value);
+        updateText("page1PeakDesc", data.peak?.desc);
+        updateText("page1CrossValue", data.cross?.value);
+        updateText("page1CrossDesc", data.cross?.desc);
+
+        return {
+          flowTimes: (data.flow?.times || []).filter(Boolean),
+          flowValues: (data.flow?.values || []).map(v => Number(v) || 0),
+          travelLabels: (data.travel?.labels || []).filter(Boolean),
+          travelValues: (data.travel?.values || []).map(v => Number(v) || 0)
+        };
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const page1Normalized = applyPage1Data(PAGE1_DATA);
+        const dataset = window.PAGES_DATA || {};
+        const page2Normalized = applyPage2Data(dataset.page2);
+        for (let n = 3; n <= 13; n++) {
+          applyPageNData(n, dataset[`page${n}`]);
+        }
+        const chartInstances = [];
+        const registerChart = (id, option) => {
+          const element = document.getElementById(id);
+          if (!element) return null;
+          const instance = echarts.init(element);
+          instance.setOption(option);
+          chartInstances.push(instance);
+          return instance;
+        };
+
+        const loadGeoJSON = async (mapName, url) => {
+          try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`请求 ${url} 失败`);
+            const json = await response.json();
+            echarts.registerMap(mapName, json);
+            return json;
+          } catch (error) {
+            console.error(`无法加载 ${mapName} 地图数据：`, error);
+            return null;
+          }
+        };
+
+        const [chinaGeoJson, anhuiGeoJson] = await Promise.all([
+          loadGeoJSON("china_full", "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"),
+          loadGeoJSON("anhui_full", "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json")
+        ]);
+
+        const mainBlue = "#3B82F6";
+        const accentPurple = "#8B5CF6";
+        const accentGreen = "#34D399";
+        const accentOrange = "#F97316";
+        const accentSlate = "#475569";
+
+        registerChart("flowTrendChart", {
+          grid: { left: "4%", right: "3%", top: "10%", bottom: "10%" },
+          tooltip: { trigger: "axis" },
+          xAxis: {
+            type: "category",
+            boundaryGap: false,
+            data: page1Normalized.flowTimes,
+            axisLine: { lineStyle: { color: "#93c5fd" } },
+            axisLabel: { color: "#0f172a" }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(59,130,246,0.1)" } }
+          },
+          series: [
+            {
+              name: "客流量",
+              type: "line",
+              smooth: true,
+              symbol: "circle",
+              symbolSize: 10,
+              lineStyle: { width: 4, color: mainBlue },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "rgba(59,130,246,0.5)" },
+                  { offset: 1, color: "rgba(59,130,246,0.05)" }
+                ])
+              },
+              data: page1Normalized.flowValues
+            }
+          ]
+        });
+
+        registerChart("travelCompareChart", {
+          grid: { left: "5%", right: "6%", top: "6%", bottom: "2%", containLabel: true },
+          tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, formatter: "{b}：{c}%" },
+          xAxis: {
+            type: "value",
+            max: 100,
+            splitLine: { show: false },
+            axisLine: { show: false },
+            axisLabel: { color: "#0f172a" }
+          },
+          yAxis: {
+            type: "category",
+            data: page1Normalized.travelLabels,
+            axisLine: { show: false },
+            axisTick: { show: false },
+            axisLabel: { color: "#0f172a", fontWeight: "500" }
+          },
+          series: [
+            {
+              type: "bar",
+              data: page1Normalized.travelValues,
+              barWidth: 18,
+              itemStyle: {
+                borderRadius: [0, 20, 20, 0],
+                color: new echarts.graphic.LinearGradient(1, 0, 0, 1, [
+                  { offset: 0, color: "#34D399" },
+                  { offset: 1, color: "#3B82F6" }
+                ])
+              },
+              label: {
+                show: true,
+                position: "right",
+                formatter: "{c}%",
+                color: "#0f172a",
+                fontWeight: "600"
+              }
+            }
+          ]
+        });
+
+        if (chinaGeoJson) {
+          const defaultProvinceData = [
+            { name: "北京市", value: 3.5 },
+            { name: "天津市", value: 1.9 },
+            { name: "河北省", value: 3.1 },
+            { name: "山西省", value: 2.2 },
+            { name: "内蒙古自治区", value: 1.2 },
+            { name: "辽宁省", value: 2.9 },
+            { name: "吉林省", value: 1.5 },
+            { name: "黑龙江省", value: 1.3 },
+            { name: "上海市", value: 3.4 },
+            { name: "江苏省", value: 3.2 },
+            { name: "浙江省", value: 4.1 },
+            { name: "安徽省", value: 3.2 },
+            { name: "福建省", value: 3.1 },
+            { name: "江西省", value: 3.3 },
+            { name: "山东省", value: 3.8 },
+            { name: "河南省", value: 4.9 },
+            { name: "湖北省", value: 3.0 },
+            { name: "湖南省", value: 4.3 },
+            { name: "广东省", value: 6.1 },
+            { name: "广西壮族自治区", value: 2.2 },
+            { name: "海南省", value: 1.6 },
+            { name: "重庆市", value: 2.5 },
+            { name: "四川省", value: 5.4 },
+            { name: "贵州省", value: 1.8 },
+            { name: "云南省", value: 2.4 },
+            { name: "西藏自治区", value: 0.6 },
+            { name: "陕西省", value: 2.7 },
+            { name: "甘肃省", value: 1.1 },
+            { name: "青海省", value: 0.7 },
+            { name: "宁夏回族自治区", value: 0.9 },
+            { name: "新疆维吾尔自治区", value: 1.3 },
+            { name: "台湾省", value: 0.4 },
+            { name: "香港特别行政区", value: 0.5 },
+            { name: "澳门特别行政区", value: 0.3 }
+          ];
+
+          const provinceData =
+            page2Normalized.heatmap.length > 0
+              ? page2Normalized.heatmap
+              : defaultProvinceData;
+
+          const provinceCoordMap = {
+            广东省: [113.280637, 23.125178],
+            四川省: [104.065735, 30.659462],
+            河南省: [113.665412, 34.757975],
+            湖南省: [112.982279, 28.19409],
+            北京市: [116.405285, 39.904989]
+          };
+
+          const topProvincePalette = {
+            广东省: mainBlue,
+            四川省: accentPurple,
+            河南省: accentGreen,
+            湖南省: accentOrange,
+            北京市: accentSlate
+          };
+          const topProvinceNames = Object.keys(topProvincePalette);
+          const topProvinceOffsets = {};
+
+          const topProvinceScatter = topProvinceNames
+            .filter(name => provinceCoordMap[name])
+            .map(name => {
+              const target = provinceData.find(item => item.name === name);
+              const symbolOffset = topProvinceOffsets[name]?.symbol || [0, 0];
+              const labelOffset = topProvinceOffsets[name]?.label || [0, 0];
+              return {
+                name: name.replace(/(省|市|自治区|特别行政区)/g, ""),
+                value: [...provinceCoordMap[name], target ? target.value : 0],
+                itemStyle: { color: topProvincePalette[name] },
+                symbolOffset,
+                label: {
+                  show: true,
+                  color: topProvincePalette[name],
+                  fontWeight: 600,
+                  formatter: "{b}",
+                  position: "right",
+                  offset: labelOffset
+                }
+              };
+            });
+
+          registerChart("provinceMap", {
+            backgroundColor: "transparent",
+            tooltip: {
+              trigger: "item",
+              formatter: params => {
+                const name = params.name.replace(/(省|市|自治区|特别行政区)/g, "");
+                const value = typeof params.value === "number" ? params.value.toFixed(1) : "0.0";
+                return `${name}<br/>到访：${value} 万人`;
+              }
+            },
+            visualMap: {
+              min: 0,
+              max: 6.5,
+              orient: "vertical",
+              left: "2%",
+              bottom: "12%",
+              text: ["高", "低"],
+              itemWidth: 12,
+              itemHeight: 120,
+              inRange: { color: ["#dbeafe", "#3B82F6"] },
+              textStyle: { color: "#0f172a" }
+            },
+            geo: {
+              map: "china_full",
+              roam: false,
+              layoutCenter: ["50%", "68%"],
+              layoutSize: "112%",
+              zoom: 1.15,
+              itemStyle: {
+                areaColor: "rgba(226,244,255,0.9)",
+                borderColor: "rgba(255,255,255,0.9)",
+                borderWidth: 0.8
+              },
+              emphasis: { itemStyle: { areaColor: "#bfdbfe" } }
+            },
+            series: [
+              {
+                name: "省份偏好热力",
+                type: "map",
+                geoIndex: 0,
+                selectedMode: "single",
+                select: {
+                  itemStyle: {
+                    areaColor: "#c7d2fe",
+                    borderColor: "#60a5fa",
+                    borderWidth: 1.2
+                  }
+                },
+                data: provinceData
+              },
+              {
+                name: "Top 5 省份",
+                type: "effectScatter",
+                coordinateSystem: "geo",
+                zlevel: 2,
+                symbolSize: val => val[2] * 2.3,
+                rippleEffect: { scale: 4, brushType: "stroke" },
+                data: topProvinceScatter,
+                tooltip: {
+                  formatter: params => `${params.name}<br/>到访：${params.value[2].toFixed(1)} 万人`
+                }
+              }
+            ]
+          });
+          const hubCoordMap = {
+            马鞍山: [118.51, 31.69],
+            南京南站: [118.79, 31.98],
+            合肥南站: [117.3, 31.86],
+            芜湖站: [118.38, 31.33],
+            黄山北站: [118.26, 29.72]
+          };
+          const hubRoutes = [
+            { from: "马鞍山", to: "南京南站", value: 15.7 },
+            { from: "马鞍山", to: "合肥南站", value: 12.3 },
+            { from: "马鞍山", to: "芜湖站", value: 9.8 },
+            { from: "马鞍山", to: "黄山北站", value: 6.2 }
+          ];
+          registerChart("criticalHubMap", {
+            tooltip: {
+              trigger: "item",
+              formatter: params => {
+                if (params.seriesType === "lines") {
+                  return `${params.data.fromName} → ${params.data.toName}<br/>流量：${params.data.value.toFixed(1)} 万人`;
+                }
+                return `${params.name}<br/>流量：${params.value[2]} 万人`;
+              }
+            },
+            geo: {
+              map: "china_full",
+              roam: false,
+              zoom: 1.05,
+              center: [118, 31.3],
+              itemStyle: {
+                areaColor: "rgba(226,244,255,0.9)",
+                borderColor: "rgba(255,255,255,0.9)"
+              },
+              emphasis: { itemStyle: { areaColor: "#bfdbfe" } }
+            },
+            series: [
+              {
+                name: "枢纽流向",
+                type: "lines",
+                coordinateSystem: "geo",
+                zlevel: 2,
+                effect: {
+                  show: true,
+                  period: 6,
+                  trailLength: 0.4,
+                  color: "#fb923c",
+                  symbolSize: 6
+                },
+                lineStyle: {
+                  color: "#fb923c",
+                  width: 2,
+                  opacity: 0.65,
+                  curveness: 0.2
+                },
+                data: hubRoutes.map(route => ({
+                  fromName: route.from,
+                  toName: route.to,
+                  coords: [hubCoordMap[route.from], hubCoordMap[route.to]],
+                  value: route.value
+                }))
+              },
+              {
+                name: "目的地",
+                type: "effectScatter",
+                coordinateSystem: "geo",
+                zlevel: 3,
+                rippleEffect: { brushType: "stroke" },
+                symbolSize: val => val[2] / 1.5 + 6,
+                itemStyle: { color: "#3B82F6" },
+                data: hubRoutes.map(route => ({
+                  name: route.to,
+                  value: [...hubCoordMap[route.to], route.value]
+                }))
+              },
+              {
+                name: "马鞍山",
+                type: "scatter",
+                coordinateSystem: "geo",
+                zlevel: 3,
+                symbolSize: 14,
+                itemStyle: { color: "#f97316" },
+                data: [{ name: "马鞍山", value: [...hubCoordMap["马鞍山"], 20] }]
+              }
+            ]
+          });
+        }
+
+        const defaultRingCore = [
+          { value: 45, name: "????" },
+          { value: 25, name: "????" },
+          { value: 18, name: "????" },
+          { value: 12, name: "????" }
+        ];
+        const defaultRingPotential = [
+          { value: 32, name: "????" },
+          { value: 20, name: "?????" },
+          { value: 18, name: "????" },
+          { value: 15, name: "??????" },
+          { value: 15, name: "????" }
+        ];
+        const defaultRingPosition = [
+          { value: 60, name: "??????" },
+          { value: 40, name: "??????" }
+        ];
+        const ringData = {
+          core:
+            page2Normalized.ring.core.length > 0
+              ? page2Normalized.ring.core
+              : defaultRingCore,
+          potential:
+            page2Normalized.ring.potential.length > 0
+              ? page2Normalized.ring.potential
+              : defaultRingPotential,
+          position:
+            page2Normalized.ring.position.length > 0
+              ? page2Normalized.ring.position
+              : defaultRingPosition
+        };
+
+        registerChart("provinceRing", {
+          title: {
+            text: "到访省份数量",
+            subtext: "三层结构展示",
+            left: "center",
+            top: "5%",
+            textStyle: { color: "#0f172a", fontSize: 16 },
+            subtextStyle: { color: "#64748b" }
+          },
+          tooltip: { trigger: "item", formatter: "{b}: {c} ({d}%)" },
+          color: ["#3B82F6", "#34D399", "#8B5CF6", "#FCD34D", "#60A5FA"],
+          series: [
+            {
+              name: "热门省份",
+              type: "pie",
+              radius: ["55%", "70%"],
+              startAngle: 200,
+              avoidLabelOverlap: false,
+              label: { show: true, formatter: "{b}\n{d}%" },
+              data: ringData.core
+            },
+            {
+              name: "次级分布",
+              type: "pie",
+              radius: ["38%", "52%"],
+              label: { show: false },
+              data: ringData.potential
+            },
+            {
+              name: "完成度",
+              type: "pie",
+              radius: ["20%", "30%"],
+              label: { show: false },
+              data: ringData.position
+            }
+          ]
+        });
+
+        const page3Flow = (dataset.page3 && dataset.page3.flow) ? dataset.page3.flow : { times: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"], values: [18, 22, 27, 33, 38, 45, 41] };
+        registerChart("visitorArea", {
+          tooltip: { trigger: "axis" },
+          grid: { left: "4%", right: "3%", top: "10%", bottom: "12%" },
+          xAxis: {
+            type: "category",
+            boundaryGap: false,
+            data: page3Flow.times && page3Flow.times.length ? page3Flow.times : ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+            axisLine: { lineStyle: { color: "#93c5fd" } },
+            axisLabel: { color: "#0f172a" }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(148,163,184,0.3)" } }
+          },
+          series: [
+            {
+              name: "省外人数",
+              type: "line",
+              smooth: true,
+              symbol: "none",
+              lineStyle: { width: 3, color: accentPurple },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "rgba(139,92,246,0.4)" },
+                  { offset: 1, color: "rgba(139,92,246,0.05)" }
+                ])
+              },
+              data: page3Flow.values && page3Flow.values.length ? page3Flow.values : [18, 22, 27, 33, 38, 45, 41]
+            }
+          ]
+        });
+
+        registerChart("stayBar", {
+          tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, formatter: "{b}：{c}%" },
+          grid: { left: "6%", right: "4%", bottom: "12%", top: "12%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["1 天", "2 天", "3-4 天", "5-6 天", "7 天以上"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#cbd5f5" } }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a", formatter: "{value}%" },
+            splitLine: { lineStyle: { color: "rgba(15,23,42,0.1)" } }
+          },
+          series: [
+            {
+              type: "bar",
+              data: [24, 30, 26, 12, 8],
+              barWidth: "45%",
+              itemStyle: {
+                borderRadius: 12,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#34D399" },
+                  { offset: 1, color: "#3B82F6" }
+                ])
+              }
+            }
+          ]
+        });
+
+        if (anhuiGeoJson) {
+          const anhuiCityData = [
+            { name: "合肥市", value: 35 },
+            { name: "芜湖市", value: 22 },
+            { name: "蚌埠市", value: 14 },
+            { name: "淮南市", value: 11 },
+            { name: "马鞍山市", value: 19 },
+            { name: "淮北市", value: 9 },
+            { name: "铜陵市", value: 10 },
+            { name: "安庆市", value: 17 },
+            { name: "黄山市", value: 13 },
+            { name: "滁州市", value: 15 },
+            { name: "阜阳市", value: 16 },
+            { name: "宿州市", value: 12 },
+            { name: "六安市", value: 14 },
+            { name: "亳州市", value: 8 },
+            { name: "池州市", value: 9 },
+            { name: "宣城市", value: 12 }
+          ];
+
+          const anhuiCoords = {
+            合肥市: [117.227239, 31.820587],
+            芜湖市: [118.375322, 31.326478],
+            蚌埠市: [117.36237, 32.939667],
+            淮南市: [117.018429, 32.647575],
+            马鞍山市: [118.507906, 31.689362],
+            淮北市: [116.794664, 33.971707],
+            铜陵市: [117.816576, 30.929935],
+            安庆市: [117.053571, 30.524816],
+            黄山市: [118.317325, 29.709239],
+            滁州市: [118.317108, 32.301556],
+            阜阳市: [115.819729, 32.896969],
+            宿州市: [116.984084, 33.633891],
+            六安市: [116.521854, 31.733699],
+            亳州市: [115.782939, 33.869338],
+            池州市: [117.489157, 30.656037],
+            宣城市: [118.757995, 30.945667]
+          };
+
+          const anhuiHighlight = ["合肥市", "芜湖市", "马鞍山市", "黄山市"];
+          const anhuiColorMap = {
+            合肥市: mainBlue,
+            芜湖市: accentPurple,
+            马鞍山市: accentGreen,
+            黄山市: accentOrange
+          };
+          const anhuiScatter = anhuiHighlight.map(name => {
+            const pointValue = anhuiCityData.find(item => item.name === name)?.value || 0;
+            return {
+              name: name.replace("市", ""),
+              value: [...(anhuiCoords[name] || [0, 0]), pointValue],
+              itemStyle: { color: anhuiColorMap[name] },
+              label: {
+                show: true,
+                color: anhuiColorMap[name],
+                formatter: "{b}",
+                position: "right",
+                fontWeight: 600
+              }
+            };
+          });
+
+          registerChart("cityMiniMap", {
+            tooltip: {
+              trigger: "item",
+              formatter: params => {
+                if (Array.isArray(params.value)) {
+                  return `${params.name}<br/>到访：${params.value[2]} 万人`;
+                }
+                return `${params.name}<br/>到访：${params.value} 万人`;
+              }
+            },
+            visualMap: {
+              min: 6,
+              max: 36,
+              left: "2%",
+              bottom: "12%",
+              orient: "vertical",
+              text: ["高", "低"],
+              itemHeight: 120,
+              itemWidth: 12,
+              inRange: { color: ["#dbeafe", "#2563eb"] },
+              textStyle: { color: "#0f172a" }
+            },
+            geo: {
+              map: "anhui_full",
+              roam: false,
+              layoutCenter: ["50%", "46%"],
+              layoutSize: "100%",
+              itemStyle: {
+                areaColor: "rgba(226,244,255,0.95)",
+                borderColor: "rgba(255,255,255,0.9)",
+                borderWidth: 0.8
+              },
+              emphasis: { itemStyle: { areaColor: "#bfdbfe" } }
+            },
+            series: [
+              {
+                name: "安徽省客流",
+                type: "map",
+                geoIndex: 0,
+                data: anhuiCityData
+              },
+              {
+                name: "重点城市",
+                type: "effectScatter",
+                coordinateSystem: "geo",
+                zlevel: 2,
+                symbolSize: val => val[2] / 2 + 8,
+                rippleEffect: { scale: 4, brushType: "stroke" },
+                data: anhuiScatter
+              }
+            ]
+          });
+        }
+
+        const page4Trend = dataset.page4 && dataset.page4.trend && dataset.page4.trend.series && dataset.page4.trend.series.length
+          ? dataset.page4.trend
+          : { categories: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"], series: [{ name: "雨山湖", data: [8.4, 8.1, 8.8, 9.4, 9.9, 10.6, 9.8] }, { name: "小南湖", data: [6.2, 6.5, 6.9, 7.1, 7.6, 8.2, 7.4] }, { name: "山水间", data: [5.1, 5.3, 5.7, 5.9, 6.2, 6.7, 6.3] }] };
+        registerChart("scenicMultiLine", {
+          tooltip: { trigger: "axis" },
+          legend: {
+            data: page4Trend.series.map(s => s.name),
+            top: 10,
+            textStyle: { color: "#0f172a" }
+          },
+          grid: { left: "4%", right: "4%", bottom: "8%", top: "20%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: page4Trend.categories && page4Trend.categories.length ? page4Trend.categories : ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+            axisLine: { lineStyle: { color: "#c7d2fe" } },
+            axisLabel: { color: "#0f172a" }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(15,23,42,0.1)" } }
+          },
+          color: ["#3B82F6", "#8B5CF6", "#34D399"],
+          series: page4Trend.series.map((s, i) => ({
+            name: s.name || `系列${i + 1}`,
+            type: "line",
+            smooth: true,
+            data: s.data || [],
+            lineStyle: { width: i === 0 ? 4 : 3, type: i === 1 ? "dashed" : "solid" },
+            symbol: i === 0 ? "circle" : i === 1 ? "triangle" : "rect"
+          }))
+        });
+
+        registerChart("criticalHubTrendChart", {
+          tooltip: { trigger: "axis" },
+          legend: { data: ["枢纽客流", "节前基线"], top: 0, textStyle: { color: "#0f172a" } },
+          grid: { left: "6%", right: "4%", top: "18%", bottom: "12%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["01-26", "01-27", "01-28", "01-29", "01-30", "01-31", "02-01", "02-02", "02-03"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fb923c" } }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(251,146,60,0.25)" } }
+          },
+          color: ["#f97316", "#94a3b8"],
+          series: [
+            {
+              name: "枢纽客流",
+              type: "line",
+              smooth: true,
+              symbol: "circle",
+              symbolSize: 8,
+              lineStyle: { color: "#f97316", width: 3 },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "rgba(249,115,22,0.45)" },
+                  { offset: 1, color: "rgba(249,115,22,0.05)" }
+                ])
+              },
+              data: [32.6, 34.1, 37.5, 42.8, 49.3, 56.7, 62.4, 65.8, 68.6]
+            },
+            {
+              name: "节前基线",
+              type: "line",
+              smooth: true,
+              symbol: "none",
+              lineStyle: { color: "#94a3b8", width: 2, type: "dashed" },
+              data: [28, 28, 28.5, 29, 30, 31, 32, 33, 33.5]
+            }
+          ]
+        });
+
+        registerChart("mallFlowChart", {
+          tooltip: { trigger: "axis" },
+          grid: { left: "6%", right: "4%", top: "8%", bottom: "14%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["01-25", "01-26", "01-27", "01-28", "01-29", "01-30", "02-01"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fb923c" } }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(251,146,60,0.2)" } }
+          },
+          series: [
+            {
+              name: "客流量",
+              type: "line",
+              smooth: true,
+              symbol: "circle",
+              symbolSize: 10,
+              lineStyle: { color: "#fb923c", width: 3 },
+              itemStyle: { color: "#f97316" },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "rgba(251,146,60,0.4)" },
+                  { offset: 1, color: "rgba(251,146,60,0.05)" }
+                ])
+              },
+              data: [29.7, 30.3, 20.6, 24.9, 25.4, 28.3, 28.0]
+            }
+          ]
+        });
+
+
+
+        registerChart("mobileTrafficUsageChart", {
+          tooltip: { trigger: "axis" },
+          legend: { data: ["整体流量", "节前基线"], top: 0, textStyle: { color: "#0f172a" } },
+          grid: { left: "6%", right: "4%", top: "18%", bottom: "12%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["01-26", "01-27", "01-28", "01-29", "01-30", "01-31", "02-01", "02-02", "02-03"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fcd34d" } }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(252,211,77,0.25)" } }
+          },
+          color: ["#f97316", "#94a3b8"],
+          series: [
+            {
+              name: "整体流量",
+              type: "line",
+              smooth: true,
+              symbol: "circle",
+              symbolSize: 8,
+              lineStyle: { color: "#f97316", width: 3 },
+              areaStyle: { color: "rgba(249,115,22,0.18)" },
+              data: [118, 124, 135, 140, 152, 160, 166, 168, 164]
+            },
+            {
+              name: "节前基线",
+              type: "line",
+              smooth: true,
+              symbol: "none",
+              lineStyle: { color: "#94a3b8", width: 2, type: "dashed" },
+              data: [110, 110, 110, 110, 110, 110, 110, 110, 110]
+            }
+          ]
+        });
+
+        registerChart("keyRegionNetBarChart", {
+          tooltip: { trigger: "axis" },
+          legend: { data: ["日均流量", "增长率"], top: 0, textStyle: { color: "#0f172a" } },
+          grid: { left: "6%", right: "6%", top: "18%", bottom: "12%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["高速", "高铁", "机场", "景区"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fb923c" } }
+          },
+          yAxis: [
+            {
+              type: "value",
+              name: "流量（TB）",
+              axisLabel: { color: "#0f172a" },
+              splitLine: { lineStyle: { color: "rgba(249,115,22,0.15)" } }
+            },
+            {
+              type: "value",
+              name: "增长率",
+              axisLabel: { color: "#0f172a", formatter: "{value}%" },
+              splitLine: { show: false }
+            }
+          ],
+          series: [
+            {
+              name: "日均流量",
+              type: "bar",
+              data: [128, 118, 106, 94],
+              barWidth: 22,
+              itemStyle: {
+                borderRadius: 10,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#f97316" },
+                  { offset: 1, color: "#fbbf24" }
+                ])
+              }
+            },
+            {
+              name: "增长率",
+              type: "line",
+              yAxisIndex: 1,
+              data: [5.2, 6.4, 5.2, 3.8],
+              symbol: "circle",
+              symbolSize: 8,
+              lineStyle: { color: "#3B82F6", width: 3 }
+            }
+          ]
+        });
+
+        registerChart("voiceUsageDetailChart", {
+          tooltip: { trigger: "axis" },
+          legend: { data: ["通话次数", "活跃用户"], top: 0, textStyle: { color: "#0f172a" } },
+          grid: { left: "6%", right: "6%", top: "18%", bottom: "12%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["除夕", "初一", "初二", "初三", "初四", "初五", "初六"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fb923c" } }
+          },
+          yAxis: [
+            {
+              type: "value",
+              name: "万次",
+              axisLabel: { color: "#0f172a" },
+              splitLine: { lineStyle: { color: "rgba(15,23,42,0.1)" } }
+            },
+            {
+              type: "value",
+              name: "万户",
+              axisLabel: { color: "#0f172a" },
+              splitLine: { show: false }
+            }
+          ],
+          series: [
+            {
+              name: "通话次数",
+              type: "line",
+              smooth: true,
+              symbol: "circle",
+              symbolSize: 8,
+              lineStyle: { color: "#f97316", width: 3 },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "rgba(249,115,22,0.25)" },
+                  { offset: 1, color: "rgba(249,115,22,0.02)" }
+                ])
+              },
+              data: [105, 125.7, 118, 112, 107, 101, 96]
+            },
+            {
+              name: "活跃用户",
+              type: "bar",
+              yAxisIndex: 1,
+              barWidth: 18,
+              data: [13.5, 14.8, 14.2, 13.6, 13.3, 12.7, 12.1],
+              itemStyle: {
+                borderRadius: 8,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#60a5fa" },
+                  { offset: 1, color: "#2563eb" }
+                ])
+              }
+            }
+          ]
+        });
+
+
+        registerChart("itvEngagementChart", {
+          tooltip: { trigger: "axis" },
+          grid: { left: "6%", right: "4%", top: "8%", bottom: "12%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["01-26", "01-27", "01-28", "01-29", "01-30", "01-31", "02-01", "02-02", "02-03"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#f97316" } }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(15,23,42,0.1)" } }
+          },
+          series: [
+            {
+              name: "活跃用户",
+              type: "line",
+              smooth: true,
+              symbol: "circle",
+              symbolSize: 8,
+              lineStyle: { color: "#f97316", width: 3 },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "rgba(249,115,22,0.35)" },
+                  { offset: 1, color: "rgba(249,115,22,0.05)" }
+                ])
+              },
+              data: [5.0, 5.3, 5.7, 6.2, 6.6, 6.9, 6.4, 6.1, 5.6]
+            }
+          ]
+        });
+        registerChart("itvCategoryChart", {
+          tooltip: { trigger: "axis" },
+          grid: { left: "18%", right: "6%", top: "10%", bottom: "8%", containLabel: true },
+          xAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a", formatter: "{value}%" },
+            splitLine: { lineStyle: { color: "rgba(15,23,42,0.1)" } }
+          },
+          yAxis: {
+            type: "category",
+            data: ["综艺直播", "本地资讯", "亲子动画", "互动游戏"],
+            axisLabel: { color: "#0f172a" }
+          },
+          series: [
+            {
+              type: "bar",
+              data: [32, 28, 24, 16],
+              barWidth: 16,
+              itemStyle: {
+                borderRadius: [0, 12, 12, 0],
+                color: new echarts.graphic.LinearGradient(1, 0, 0, 1, [
+                  { offset: 0, color: "#fb923c" },
+                  { offset: 1, color: "#f97316" }
+                ])
+              },
+              label: {
+                show: true,
+                position: "right",
+                formatter: "{c}%",
+                color: "#0f172a",
+                fontWeight: "600"
+              }
+            }
+          ]
+        });
+
+        registerChart("ageDistributionChart", {
+          tooltip: { trigger: "axis" },
+          grid: { left: "6%", right: "4%", top: "8%", bottom: "10%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["20 岁以下", "20-30 岁", "30-35 岁", "35-50 岁", "50 岁以上"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fb923c" } }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a", formatter: "{value}%" },
+            splitLine: { lineStyle: { color: "rgba(15,23,42,0.1)" } }
+          },
+          series: [
+            {
+              type: "bar",
+              data: [1.5, 13.9, 14.4, 38.3, 31.9],
+              barWidth: "45%",
+              itemStyle: {
+                borderRadius: 12,
+                color: params => {
+                  const palette = ["#d6d3fe", "#a5b4fc", "#93c5fd", "#fb923c", "#60a5fa"];
+                  return palette[params.dataIndex] || "#3B82F6";
+                }
+              }
+            }
+          ]
+        });
+
+        registerChart("topAppRoseChart", {
+          tooltip: { trigger: "item", formatter: "{b}<br/>占比：{d}%" },
+          series: [
+            {
+              name: "头部 App",
+              type: "pie",
+              roseType: "radius",
+              radius: ["25%", "70%"],
+              center: ["50%", "55%"],
+              label: { color: "#0f172a" },
+              data: [
+                { value: 17.7, name: "短视频/直播" },
+                { value: 12.0, name: "在线视频" },
+                { value: 10.2, name: "本地生活" },
+                { value: 8.5, name: "资讯阅读" },
+                { value: 7.4, name: "社交内容" },
+                { value: 6.4, name: "出行/地图" },
+                { value: 5.1, name: "音乐音频" },
+                { value: 4.1, name: "二次元社区" },
+                { value: 3.2, name: "购物平台" },
+                { value: 25.4, name: "其他" }
+              ]
+            }
+          ],
+          color: ["#fb923c", "#f97316", "#fcd34d", "#60a5fa", "#a5b4fc", "#34d399", "#f472b6", "#94a3b8", "#fda4af", "#cbd5f5"]
+        });
+
+        registerChart("topAppDualChart", {
+          tooltip: { trigger: "axis" },
+          legend: { data: ["日活人数", "周环比"], top: 0, textStyle: { color: "#0f172a" } },
+          grid: { left: "6%", right: "6%", top: "18%", bottom: "12%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["微信", "抖音", "短视频号", "微博", "百度", "高德地图"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fb923c" } }
+          },
+          yAxis: [
+            {
+              type: "value",
+              name: "日活（万人）",
+              axisLabel: { color: "#0f172a" },
+              splitLine: { lineStyle: { color: "rgba(249,115,22,0.15)" } }
+            },
+            {
+              type: "value",
+              name: "周环比",
+              axisLabel: { color: "#0f172a", formatter: "{value}%" },
+              splitLine: { show: false }
+            }
+          ],
+          series: [
+            {
+              name: "日活人数",
+              type: "bar",
+              data: [22.4, 19.7, 17.2, 14.5, 13.3, 11.6],
+              barWidth: 24,
+              itemStyle: {
+                borderRadius: 10,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#f97316" },
+                  { offset: 1, color: "#fdba74" }
+                ])
+              }
+            },
+            {
+              name: "周环比",
+              type: "line",
+              yAxisIndex: 1,
+              symbol: "circle",
+              symbolSize: 8,
+              lineStyle: { color: "#3B82F6", width: 3 },
+              data: [1.5, 3.2, 1.8, 0.6, 0.8, 0.4]
+            }
+          ]
+        });
+
+        registerChart("travelHelperTrendChart", {
+          tooltip: { trigger: "axis" },
+          grid: { left: "6%", right: "4%", top: "12%", bottom: "10%", containLabel: true },
+          xAxis: {
+            type: "category",
+            data: ["01-26", "01-27", "01-28", "01-29", "01-30", "01-31", "02-01", "02-02", "02-03", "02-04"],
+            axisLabel: { color: "#0f172a" },
+            axisLine: { lineStyle: { color: "#fb923c" } }
+          },
+          yAxis: {
+            type: "value",
+            axisLabel: { color: "#0f172a" },
+            splitLine: { lineStyle: { color: "rgba(249,115,22,0.15)" } }
+          },
+          series: [
+            {
+              name: "行程类 App 日活",
+              type: "line",
+              smooth: true,
+              symbol: "circle",
+              symbolSize: 8,
+              lineStyle: { color: "#f97316", width: 3 },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "rgba(249,115,22,0.3)" },
+                  { offset: 1, color: "rgba(249,115,22,0.05)" }
+                ])
+              },
+              data: [128, 136, 149, 158, 172, 189, 205, 208, 196, 182]
+            }
+          ]
+        });
+
+        window.addEventListener("resize", () => {
+          chartInstances.forEach(chart => chart.resize());
+        });
+      });
+    </script>
+  </body>
+</html>
