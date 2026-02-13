@@ -1,25 +1,30 @@
-name: 自动同步飞书数据
+name: 自动同步飞书数据并发布网页
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # 每30分钟运行一次，你可以根据需要调整
-  workflow_dispatch:      # 允许你在 GitHub 页面手动点击按钮立即更新
+    - cron: '*/30 * * * *' 
+  workflow_dispatch:
+
+# 核心权限：必须开启，否则 Action 无法触发 Pages 更新
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 安装 Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: 运行同步脚本
         env:
-          # 这些变量需要在 GitHub Settings -> Secrets 中设置
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
           FEISHU_SHEET_TOKEN: ${{ secrets.FEISHU_SHEET_TOKEN }}
@@ -27,14 +32,17 @@ jobs:
           mkdir -p data
           node scripts/fetch_feishu_sheet.mjs
 
-      - name: 提交并推送到仓库
+      - name: 提交数据变更
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "actions@github.com"
-          # git add data/map_data.json
-          # # 如果文件没有变化，就不提交，防止报错
-          # git commit -m "Auto-update data from Feishu" || exit 0
-          git add .
-          # 加上 --allow-empty 确保即使数据没变也强制触发一次部署
-          git commit --allow-empty -m "🔥 强制刷新网页部署: $(date)"
+          git add data/map_data.json
+          # 如果没变化就不提交，减少无谓的构建
+          git commit -m "Auto-update data from Feishu" || echo "No changes to commit"
           git push
+
+      # 关键步骤：主动触发 GitHub Pages 的构建任务
+      # 这步会直接叫醒 GitHub 服务器：别等了，赶紧刷新网页！
+      - name: 触发 Pages 部署
+        uses: actions/deploy-pages@v4
+        if: always() # 确保即使数据没变，页面缓存也能通过重新构建刷新
