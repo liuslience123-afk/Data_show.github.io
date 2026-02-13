@@ -1343,16 +1343,39 @@
           loadGeoJSON("anhui_full", MAP_PATHS.anhui_full)
         ]);
 
+        const GITHUB_MAP_DATA_URL = "https://raw.githubusercontent.com/liuslience123-afk/Data_show.github.io/main/data/map_data.json";
+        const tryLoadMapData = async () => {
+          const baseDir = window.location.pathname.replace(/\/[^/]*$/, "") || "";
+          const paths = [
+            GITHUB_MAP_DATA_URL,
+            new URL("data/map_data.json", window.location.href).href,
+            "./data/map_data.json"
+          ];
+          for (const path of paths) {
+            try {
+              const url = path + (path.indexOf("?") >= 0 ? "&" : "?") + "t=" + _cacheT;
+              const res = await fetch(url);
+              if (res.ok) {
+                const data = await res.json();
+                const parsed = data.parsed || data;
+                if (parsed.page1Data) window.__PAGE1_DATA = parsed.page1Data;
+                if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
+                console.log("已成功加载 map_data.json，路径：", url);
+                return true;
+              }
+            } catch (e) {
+              console.warn("尝试路径失败：", path, e.message || e);
+            }
+          }
+          return false;
+        };
         try {
-          const res = await fetch("./data/map_data.json?t=" + _cacheT);
-          if (res.ok) {
-            const data = await res.json();
-            const parsed = data.parsed || data;
-            if (parsed.page1Data) window.__PAGE1_DATA = parsed.page1Data;
-            if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
+          const loaded = await tryLoadMapData();
+          if (!loaded) {
+            console.warn("所有路径均无法加载 map_data.json，使用页面内默认数据");
           }
         } catch (e) {
-          console.warn("加载 map_data.json 失败，使用页面内默认数据，路径：./data/map_data.json", e.message || e);
+          console.warn("加载 map_data.json 失败，使用页面内默认数据", e.message || e);
         }
 
         const page1Data = window.__PAGE1_DATA || PAGE1_DATA;
