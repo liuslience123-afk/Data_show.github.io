@@ -1335,22 +1335,26 @@
           return instance;
         };
 
-        const loadGeoJSON = async (mapName, url) => {
+        const MAP_PATHS = {
+          china_full: "./map_assets/china.json",
+          anhui_full: "./map_assets/anhui.json"
+        };
+        const loadGeoJSON = async (mapName, relativePath) => {
           try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`请求 ${url} 失败`);
+            const response = await fetch(relativePath);
+            if (!response.ok) throw new Error(`HTTP ${response.status}: ${relativePath}`);
             const json = await response.json();
             echarts.registerMap(mapName, json);
             return json;
           } catch (error) {
-            console.error(`无法加载 ${mapName} 地图数据：`, error);
+            console.error(`无法加载地图 "${mapName}"，相对路径：${relativePath}`, error.message || error);
             return null;
           }
         };
 
         const [chinaGeoJson, anhuiGeoJson] = await Promise.all([
-          loadGeoJSON("china_full", "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"),
-          loadGeoJSON("anhui_full", "https://geo.datav.aliyun.com/areas_v3/bound/340000_full.json")
+          loadGeoJSON("china_full", MAP_PATHS.china_full),
+          loadGeoJSON("anhui_full", MAP_PATHS.anhui_full)
         ]);
 
         const mainBlue = "#3B82F6";
