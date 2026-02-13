@@ -1288,6 +1288,68 @@
         }
       }
 
+      function parseSpreadsheetSheet(values) {
+        if (!values || values.length < 2) return {};
+        const result = {};
+        const valCol = 5;
+        let i = 1;
+        while (i < values.length) {
+          const row = values[i];
+          const key = row && row[0];
+          if (key && typeof key === "string") {
+            if (key.includes("+")) {
+              const [left, right] = key.split("+");
+              const leftPart = left.split(".")[0];
+              const leftProp = left.includes(".") ? left.split(".")[1] : "times";
+              const rightProp = right.includes(".") ? right.split(".")[1] : "values";
+              const labels = [];
+              const vals = [];
+              i++;
+              while (i < values.length) {
+                const r = values[i];
+                if (r && r[0]) break;
+                const lab = r && r[5];
+                const v = r && r[6];
+                if (lab != null || v != null) {
+                  const num = Number(v);
+                  if (typeof lab === "string" && !isNaN(num)) {
+                    labels.push(lab);
+                    vals.push(num);
+                  } else if (typeof lab === "number" && typeof v === "string") {
+                    labels.push(String(v));
+                    vals.push(lab);
+                  }
+                }
+                i++;
+              }
+              if (!result[leftPart]) result[leftPart] = {};
+              result[leftPart][leftProp] = labels;
+              result[leftPart][rightProp] = vals;
+              continue;
+            }
+            const val = row[valCol];
+            if (key.includes(".")) {
+              const [p, c] = key.split(".");
+              if (!result[p]) result[p] = {};
+              result[p][c] = val;
+            } else {
+              result[key] = val;
+            }
+          }
+          i++;
+        }
+        return result;
+      }
+
+      function applyCoverData(data) {
+        if (!data || typeof data !== "object") return;
+        const keys = ["coverTitle","coverSummary","coverYearBadge","coverYearLabel","coverThemeLabel","coverCityLabel","coverPeriodLabel","coverSceneName","coverFlowValue","coverBizValue","coverNetValue"];
+        keys.forEach(k => {
+          const v = data[k];
+          if (v != null) updateText(k, String(v));
+        });
+      }
+
       function applyPage1Data(data) {
         updateText("page1Title", data.title);
         updateText("page1Summary", data.summary);
@@ -1358,8 +1420,26 @@
               if (res.ok) {
                 const data = await res.json();
                 const parsed = data.parsed || data;
-                if (parsed.page1Data) window.__PAGE1_DATA = parsed.page1Data;
-                if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
+                if (parsed.page1Data) {
+                  window.__PAGE1_DATA = parsed.page1Data;
+                  if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
+                } else if (data.cover || data.page1) {
+                  if (data.cover && data.cover.values) {
+                    const coverParsed = parseSpreadsheetSheet(data.cover.values);
+                    applyCoverData(coverParsed);
+                  }
+                  if (data.page1 && data.page1.values) {
+                    window.__PAGE1_DATA = parseSpreadsheetSheet(data.page1.values);
+                  }
+                  const pagesData = {};
+                  for (let n = 2; n <= 13; n++) {
+                    const sheet = data["page" + n];
+                    if (sheet && sheet.values) {
+                      pagesData["page" + n] = parseSpreadsheetSheet(sheet.values);
+                    }
+                  }
+                  if (Object.keys(pagesData).length) window.PAGES_DATA = pagesData;
+                }
                 console.log("已成功加载 map_data.json，路径：", url);
                 return true;
               }
