@@ -2,17 +2,25 @@ name: 自动同步飞书数据并发布网页
 
 on:
   schedule:
-    - cron: '*/30 * * * *' 
-  workflow_dispatch:
+    - cron: '*/30 * * * *' # 每30分钟运行一次
+  workflow_dispatch:      # 允许手动点击运行
 
-# 核心权限：必须开启，否则 Action 无法触发 Pages 更新
+# 必须：设置 GITHUB_TOKEN 的权限，允许 Action 提交代码并触发部署
 permissions:
   contents: write
   pages: write
   id-token: write
 
+# 确保同一时间只有一个部署任务在运行，防止冲突
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  update-data:
+  update-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
@@ -32,17 +40,24 @@ jobs:
           mkdir -p data
           node scripts/fetch_feishu_sheet.mjs
 
-      - name: 提交数据变更
+      - name: 提交并推送数据变更
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "actions@github.com"
           git add data/map_data.json
-          # 如果没变化就不提交，减少无谓的构建
-          git commit -m "Auto-update data from Feishu" || echo "No changes to commit"
+          # 即使数据没变也强制提交一个记录，带上时间戳防止部署静默
+          git commit --allow-empty -m "📊 自动更新数据并强制刷新: $(date)"
           git push
 
-      # 关键步骤：主动触发 GitHub Pages 的构建任务
-      # 这步会直接叫醒 GitHub 服务器：别等了，赶紧刷新网页！
-      - name: 触发 Pages 部署
+      - name: 配置 Pages 
+        uses: actions/configure-pages@v4
+
+      - name: 上传网页构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 上传根目录所有文件（包括 index.html, data/, map_assets/）
+          path: '.'
+
+      - name: 正式执行部署
+        id: deployment
         uses: actions/deploy-pages@v4
-        if: always() # 确保即使数据没变，页面缓存也能通过重新构建刷新
