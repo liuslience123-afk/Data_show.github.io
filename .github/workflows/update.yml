@@ -1,26 +1,17 @@
-name: 自动同步飞书数据并发布网页
+name: 自动同步飞书数据
 
 on:
   schedule:
     - cron: '*/30 * * * *' # 每30分钟运行一次
-  workflow_dispatch:      # 允许手动点击运行
+  workflow_dispatch:      # 允许手动触发
 
-# 必须：设置 GITHUB_TOKEN 的权限，允许 Action 提交代码并触发部署
 permissions:
-  contents: write
+  contents: write   # 用于 git push
   pages: write
   id-token: write
 
-# 确保同一时间只有一个部署任务在运行，防止冲突
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  update-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  update-data:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
@@ -29,7 +20,7 @@ jobs:
       - name: 安装 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: 运行同步脚本
         env:
@@ -40,24 +31,26 @@ jobs:
           mkdir -p data
           node scripts/fetch_feishu_sheet.mjs
 
-      - name: 提交并推送数据变更
+      - name: 提交并推送到仓库
         run: |
           git config --global user.name "GitHub Action Bot"
           git config --global user.email "actions@github.com"
-          git add data/map_data.json
-          # 即使数据没变也强制提交一个记录，带上时间戳防止部署静默
-          git commit --allow-empty -m "📊 自动更新数据并强制刷新: $(date)"
+          git add .
+          git commit --allow-empty -m "🔥 同步数据并刷新: $(date -u '+%Y-%m-%d %H:%M UTC')" || exit 0
           git push
 
-      - name: 配置 Pages 
-        uses: actions/configure-pages@v4
-
-      - name: 上传网页构建产物
+      - name: 上传 Pages 产物
         uses: actions/upload-pages-artifact@v3
         with:
-          # 上传根目录所有文件（包括 index.html, data/, map_assets/）
-          path: '.'
+          path: .
 
-      - name: 正式执行部署
-        id: deployment
+  deploy:
+    needs: update-data
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deploy
         uses: actions/deploy-pages@v4
