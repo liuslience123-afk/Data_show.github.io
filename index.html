@@ -1307,24 +1307,9 @@
       }
 
       document.addEventListener("DOMContentLoaded", async () => {
-        try {
-          const res = await fetch("./data/map_data.json");
-          if (res.ok) {
-            const data = await res.json();
-            const parsed = data.parsed || data;
-            if (parsed.page1Data) window.__PAGE1_DATA = parsed.page1Data;
-            if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
-          }
-        } catch (e) {
-          console.warn("加载 map_data.json 失败，使用页面内默认数据：", e.message || e);
-        }
-        const page1Data = window.__PAGE1_DATA || PAGE1_DATA;
-        const dataset = window.PAGES_DATA || {};
-        const page1Normalized = applyPage1Data(page1Data);
-        const page2Normalized = applyPage2Data(dataset.page2);
-        for (let n = 3; n <= 13; n++) {
-          applyPageNData(n, dataset[`page${n}`]);
-        }
+        const _cacheT = new Date().getTime();
+        console.log("正在获取实时数据，当前时间戳：" + _cacheT);
+
         const chartInstances = [];
         const registerChart = (id, option) => {
           const element = document.getElementById(id);
@@ -1340,8 +1325,9 @@
           anhui_full: "./map_assets/anhui.json"
         };
         const loadGeoJSON = async (mapName, relativePath) => {
+          const url = relativePath + (relativePath.indexOf("?") >= 0 ? "&" : "?") + "t=" + _cacheT;
           try {
-            const response = await fetch(relativePath);
+            const response = await fetch(url);
             if (!response.ok) throw new Error(`HTTP ${response.status}: ${relativePath}`);
             const json = await response.json();
             echarts.registerMap(mapName, json);
@@ -1356,6 +1342,26 @@
           loadGeoJSON("china_full", MAP_PATHS.china_full),
           loadGeoJSON("anhui_full", MAP_PATHS.anhui_full)
         ]);
+
+        try {
+          const res = await fetch("./data/map_data.json?t=" + _cacheT);
+          if (res.ok) {
+            const data = await res.json();
+            const parsed = data.parsed || data;
+            if (parsed.page1Data) window.__PAGE1_DATA = parsed.page1Data;
+            if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
+          }
+        } catch (e) {
+          console.warn("加载 map_data.json 失败，使用页面内默认数据，路径：./data/map_data.json", e.message || e);
+        }
+
+        const page1Data = window.__PAGE1_DATA || PAGE1_DATA;
+        const dataset = window.PAGES_DATA || {};
+        const page1Normalized = applyPage1Data(page1Data);
+        const page2Normalized = applyPage2Data(dataset.page2);
+        for (let n = 3; n <= 13; n++) {
+          applyPageNData(n, dataset[`page${n}`]);
+        }
 
         const mainBlue = "#3B82F6";
         const accentPurple = "#8B5CF6";
