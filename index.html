@@ -59,7 +59,7 @@
           <div class="mt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div class="space-y-5">
               <span class="inline-flex items-center px-4 py-1 rounded-full bg-white/20 border border-white/30 text-xs font-semibold tracking-[0.3em]" id="coverYearBadge">2026</span>
-              <h1 class="text-4xl md:text-5xl font-semibold drop-shadow-lg" id="coverTitle">春节报告</h1>
+              <h1 class="text-4xl md:text-5xl font-semibold drop-shadow-lg" id="coverTitle">春节大数据报告</h1>
               <p class="text-sm md:text-base text-white/90 max-w-2xl" id="coverSummary">结合中国电信网络与位置大数据，洞察春节期间出行、消费、数智生活等场景变化，提供面向政府与企业的决策参考。 通过模块化设计可快速替换年份、主题与地市，实现不同专项应用。11</p>
               <div class="flex flex-wrap gap-3 text-sm">
                 <span class="px-4 py-1 rounded-full bg-white/15 border border-white/20 font-semibold" id="coverYearLabel">年度：2026春节</span>
@@ -744,7 +744,7 @@
       <section class="glass-card p-8 space-y-6">
         <div class="rounded-[32px] bg-gradient-to-r from-orange-400 via-rose-400 to-pink-500 text-white p-6 space-y-3">
           <p class="uppercase tracking-[0.4em] text-xs">Page 09</p>
-          <h2 class="text-2xl font-semibold" id="page9Title">通信业务分析 · 数据连接1</h2>
+          <h2 class="text-2xl font-semibold" id="page9Title">通信业务分析 · 数据连接</h2>
           <p class="text-sm text-white/90" id="page9Summary">春节期间同日均流量较节前增长 6.7%，高速、景区、机场等重点区域的上网需求持续放大，5G 流量贡献超过三成。</span>，高速、景区、机场等重点区域的上网需求持续放大，5G 流量贡献超过三成。
           </p>
         </div>
@@ -1154,8 +1154,8 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-    <script src="page-data.js"></script>
     <script>
+      window.PAGES_DATA = {};
       const PAGE1_DATA = /* PAGE1_DATA_START */ {
   "title": "",
   "summary": "",
@@ -1307,8 +1307,20 @@
       }
 
       document.addEventListener("DOMContentLoaded", async () => {
-        const page1Normalized = applyPage1Data(PAGE1_DATA);
+        try {
+          const res = await fetch("./data/map_data.json");
+          if (res.ok) {
+            const data = await res.json();
+            const parsed = data.parsed || data;
+            if (parsed.page1Data) window.__PAGE1_DATA = parsed.page1Data;
+            if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
+          }
+        } catch (e) {
+          console.warn("加载 map_data.json 失败，使用页面内默认数据：", e.message || e);
+        }
+        const page1Data = window.__PAGE1_DATA || PAGE1_DATA;
         const dataset = window.PAGES_DATA || {};
+        const page1Normalized = applyPage1Data(page1Data);
         const page2Normalized = applyPage2Data(dataset.page2);
         for (let n = 3; n <= 13; n++) {
           applyPageNData(n, dataset[`page${n}`]);
