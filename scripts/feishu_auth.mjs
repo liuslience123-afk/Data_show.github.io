@@ -1,7 +1,5 @@
 const AUTH_URL =
   "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/";
-const DEFAULT_APP_ID = "cli_a90ef5b2abf91cb3";
-const DEFAULT_APP_SECRET = "iGWYy9xqu3In0QsV7OXuEgRRdXhx3Rk0";
 
 let cachedToken = "";
 let cachedExpireAt = 0;
@@ -34,8 +32,13 @@ export async function resolveTenantToken() {
   const directToken = readEnv("FEISHU_DIRECT_TOKEN");
   if (directToken) return directToken;
 
-  const appId = readEnv("FEISHU_APP_ID") || DEFAULT_APP_ID;
-  const appSecret = readEnv("FEISHU_APP_SECRET") || DEFAULT_APP_SECRET;
+  const appId = readEnv("FEISHU_APP_ID");
+  const appSecret = readEnv("FEISHU_APP_SECRET");
+  if (!appId || !appSecret) {
+    throw new Error(
+      "缺少飞书凭据：请在 GitHub 仓库 Settings -> Secrets and variables -> Actions 中配置 FEISHU_APP_ID 和 FEISHU_APP_SECRET"
+    );
+  }
 
   const now = Date.now();
   if (cachedToken && cachedExpireAt && now < cachedExpireAt) {
