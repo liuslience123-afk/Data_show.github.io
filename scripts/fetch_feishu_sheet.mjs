@@ -16,7 +16,9 @@ const {
 } = process.env;
 
 if (!FEISHU_SHEET_TOKEN) {
-  console.error("缺少环境变量：FEISHU_SHEET_TOKEN");
+  console.error(
+    "缺少飞书表格 Token：请在 GitHub 仓库 Settings -> Secrets and variables -> Actions 中配置 FEISHU_SHEET_TOKEN"
+  );
   process.exit(1);
 }
 
