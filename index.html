@@ -1318,11 +1318,17 @@
       function renderPage11Indicators(data) {
         const container = document.getElementById("page11Indicators");
         if (!container) return;
-        const rose = getPage11RoseData(data);
-        const tableData = rose
-          .filter(item => item.name !== "其他")
-          .sort((a, b) => b.value - a.value)
-          .slice(0, 5);
+        let tableData = [];
+        if (data?.indicators && data.indicators.length) {
+          tableData = data.indicators.map(i => ({ name: i.label || i.name || "", value: Number(i.value) || 0 })).filter(x => x.name);
+        }
+        if (!tableData.length) {
+          const rose = getPage11RoseData(data);
+          tableData = rose
+            .filter(item => item.name !== "其他")
+            .sort((a, b) => b.value - a.value)
+            .slice(0, 5);
+        }
         if (!tableData.length) return;
         const colors = ["orange", "blue", "emerald", "rose", "slate"];
         const colorMap = { orange: "text-orange-500", blue: "text-blue-500", emerald: "text-emerald-500", rose: "text-rose-500", slate: "text-slate" };
@@ -1383,6 +1389,24 @@
                 i++;
               }
               result.rose = arr;
+              continue;
+            }
+            if (key === "indicators" || key === "指标列表") {
+              const arr = [];
+              i++;
+              const skip = (v) => /^(label|value|默认列头|默认表头|品类|占比|列1|列2)$/i.test(String(v || "").trim());
+              while (i < values.length) {
+                const r = values[i];
+                if (r && r[0]) break;
+                const label = (r && r[5]) ?? (r && r[1]);
+                const v = (r && r[6]) ?? (r && r[2]);
+                const num = Number(v);
+                if (label && !skip(label) && !isNaN(num)) {
+                  arr.push({ label: String(label).trim(), value: num });
+                }
+                i++;
+              }
+              result.indicators = arr;
               continue;
             }
             if (key.includes("+")) {
