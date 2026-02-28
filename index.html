@@ -924,7 +924,7 @@
               <p class="text-lg font-semibold text-slate">重点品类指标</p>
               <span class="text-sm text-slate/60">单位：%</span>
             </div>
-            <div class="space-y-3 text-sm">
+            <div id="page11Indicators" class="space-y-3 text-sm">
               <div class="flex items-center justify-between rounded-2xl border border-orange-100 px-4 py-3">
                 <span class="text-slate font-semibold">短视频 / 直播</span>
                 <span class="text-orange-500 font-semibold">17.7</span>
@@ -1154,8 +1154,9 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="page-data.js"></script>
     <script>
-      window.PAGES_DATA = {};
+      window.PAGES_DATA = window.PAGES_DATA || {};
       const PAGE1_DATA = /* PAGE1_DATA_START */ {
   "title": "",
   "summary": "",
@@ -1200,6 +1201,11 @@
         if (!value) return;
         const el = document.getElementById(id);
         if (el) el.textContent = value;
+      }
+
+      function escapeHtml(s) {
+        if (s == null) return "";
+        return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
       }
 
       function renderList(id, items, builder) {
@@ -1286,6 +1292,49 @@
         if (data.highlights && Array.isArray(data.highlights)) {
           renderBadges(`page${n}Highlights`, data.highlights);
         }
+        if (n === 11) renderPage11Indicators(data);
+      }
+
+      function getPage11RoseData(data) {
+        let list = data?.rose || data?.appTraffic || [];
+        if (!list.length && (data?.preferences || data?.indicators)?.length) {
+          list = (data.preferences || data.indicators).map(i => ({
+            name: i.label || i.name || "",
+            value: Number(i.value) || 0
+          }));
+        }
+        return list.filter(item => {
+          const name = (item.name || item.label || "").trim();
+          const val = Number(item.value);
+          if (!name || isNaN(val) || val <= 0) return false;
+          if (/^(页面标题|摘要描述|App 分类)/.test(name)) return false;
+          return true;
+        }).map(item => ({
+          name: (item.name || item.label || "").trim(),
+          value: Number(item.value) || 0
+        }));
+      }
+
+      function renderPage11Indicators(data) {
+        const container = document.getElementById("page11Indicators");
+        if (!container) return;
+        const rose = getPage11RoseData(data);
+        const tableData = rose
+          .filter(item => item.name !== "其他")
+          .sort((a, b) => b.value - a.value)
+          .slice(0, 5);
+        if (!tableData.length) return;
+        const colors = ["orange", "blue", "emerald", "rose", "slate"];
+        const colorMap = { orange: "text-orange-500", blue: "text-blue-500", emerald: "text-emerald-500", rose: "text-rose-500", slate: "text-slate" };
+        const borderMap = { orange: "border-orange-100", blue: "border-blue-100", emerald: "border-emerald-100", rose: "border-rose-100", slate: "border-slate-100" };
+        const fmtVal = v => (v < 1 && v > 0 ? (v * 100).toFixed(1) + "%" : String(v));
+        container.innerHTML = tableData.map((item, i) => {
+          const c = colors[i % colors.length];
+          return `<div class="flex items-center justify-between rounded-2xl border ${borderMap[c]} px-4 py-3">
+            <span class="text-slate font-semibold">${escapeHtml(item.name)}</span>
+            <span class="${colorMap[c]} font-semibold">${fmtVal(item.value)}</span>
+          </div>`;
+        }).join("");
       }
 
       function parseSpreadsheetSheet(values) {
@@ -1316,6 +1365,24 @@
               }
               if (!result.ring) result.ring = {};
               result.ring[prop] = arr;
+              continue;
+            }
+            if (key === "rose" || key === "appTraffic") {
+              const arr = [];
+              i++;
+              const skip = (v) => /^(name|value|label|默认表头|品类|占比|列1|列2)$/i.test(String(v || "").trim());
+              while (i < values.length) {
+                const r = values[i];
+                if (r && r[0]) break;
+                const name = (r && r[5]) ?? (r && r[1]);
+                const v = (r && r[6]) ?? (r && r[2]);
+                const num = Number(v);
+                if (name && !skip(name) && !isNaN(num)) {
+                  arr.push({ name: String(name).trim(), value: num });
+                }
+                i++;
+              }
+              result.rose = arr;
               continue;
             }
             if (key.includes("+")) {
@@ -1426,6 +1493,19 @@
           loadGeoJSON("anhui_full", MAP_PATHS.anhui_full)
         ]);
 
+        const deepMerge = (base, override) => {
+          const out = { ...base };
+          for (const k of Object.keys(override || {})) {
+            const a = out[k], b = override[k];
+            if (b && typeof b === "object" && !Array.isArray(b) && a && typeof a === "object" && !Array.isArray(a)) {
+              out[k] = deepMerge(a, b);
+            } else if (b !== undefined && b !== null) {
+              out[k] = b;
+            }
+          }
+          return out;
+        };
+
         const GITHUB_MAP_DATA_URL = "https://raw.githubusercontent.com/liuslience123-afk/Data_show.github.io/main/data/map_data.json";
         const tryLoadMapData = async () => {
           const baseDir = window.location.pathname.replace(/\/[^/]*$/, "") || "";
@@ -1434,6 +1514,7 @@
             new URL("data/map_data.json", window.location.href).href,
             "./data/map_data.json"
           ];
+          const existingPages = window.PAGES_DATA || {};
           for (const path of paths) {
             try {
               const url = path + (path.indexOf("?") >= 0 ? "&" : "?") + "t=" + _cacheT;
@@ -1443,7 +1524,9 @@
                 const parsed = data.parsed || data;
                 if (parsed.page1Data) {
                   window.__PAGE1_DATA = parsed.page1Data;
-                  if (parsed.pagesData) window.PAGES_DATA = parsed.pagesData;
+                  if (parsed.pagesData) {
+                    window.PAGES_DATA = deepMerge(parsed.pagesData, existingPages);
+                  }
                 } else if (data.cover || data.page1) {
                   if (data.cover && data.cover.values) {
                     const coverParsed = parseSpreadsheetSheet(data.cover.values);
@@ -1454,12 +1537,14 @@
                   }
                   const pagesData = {};
                   for (let n = 2; n <= 13; n++) {
-                    const sheet = data["page" + n];
+                    const sheet = data["page" + n] || (data.pages && data.pages["page" + n]);
                     if (sheet && sheet.values) {
                       pagesData["page" + n] = parseSpreadsheetSheet(sheet.values);
                     }
                   }
-                  if (Object.keys(pagesData).length) window.PAGES_DATA = pagesData;
+                  if (Object.keys(pagesData).length) {
+                    window.PAGES_DATA = deepMerge(pagesData, existingPages);
+                  }
                 }
                 console.log("已成功加载 map_data.json，路径：", url);
                 return true;
@@ -2406,6 +2491,21 @@
           ]
         });
 
+        const page11Rose = getPage11RoseData(dataset.page11);
+        const page11ChartData = page11Rose.length
+          ? page11Rose
+          : [
+              { value: 17.7, name: "短视频/直播" },
+              { value: 12.0, name: "在线视频" },
+              { value: 10.2, name: "本地生活" },
+              { value: 8.5, name: "资讯阅读" },
+              { value: 7.4, name: "社交内容" },
+              { value: 6.4, name: "出行/地图" },
+              { value: 5.1, name: "音乐音频" },
+              { value: 4.1, name: "二次元社区" },
+              { value: 3.2, name: "购物平台" },
+              { value: 25.4, name: "其他" }
+            ];
         registerChart("topAppRoseChart", {
           tooltip: { trigger: "item", formatter: "{b}<br/>占比：{d}%" },
           series: [
@@ -2416,18 +2516,7 @@
               radius: ["25%", "70%"],
               center: ["50%", "55%"],
               label: { color: "#0f172a" },
-              data: [
-                { value: 17.7, name: "短视频/直播" },
-                { value: 12.0, name: "在线视频" },
-                { value: 10.2, name: "本地生活" },
-                { value: 8.5, name: "资讯阅读" },
-                { value: 7.4, name: "社交内容" },
-                { value: 6.4, name: "出行/地图" },
-                { value: 5.1, name: "音乐音频" },
-                { value: 4.1, name: "二次元社区" },
-                { value: 3.2, name: "购物平台" },
-                { value: 25.4, name: "其他" }
-              ]
+              data: page11ChartData
             }
           ],
           color: ["#fb923c", "#f97316", "#fcd34d", "#60a5fa", "#a5b4fc", "#34d399", "#f472b6", "#94a3b8", "#fda4af", "#cbd5f5"]
